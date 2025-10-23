@@ -190,3 +190,182 @@ Watch Usage
  › Press Enter to trigger a test run.
 
 ======
+..\backend-expert-labs\math-api>npm run lint
+
+> math-api@1.0.0 lint
+> eslint .
+
+
+C:\Users\User\Documents\backend-expert-labs\math-api\src\MathBasic.js
+   1:20  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   2:1   error  Expected indentation of 2 spaces but found 4     indent
+   2:26  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   3:1   error  Expected indentation of 4 spaces but found 8     indent
+   3:33  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   4:1   error  Expected indentation of 6 spaces but found 12    indent
+   4:68  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   5:1   error  Expected indentation of 4 spaces but found 8     indent
+   5:10  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   6:1   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   7:1   error  Expected indentation of 4 spaces but found 8     indent
+   7:29  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   8:1   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+   9:1   error  Expected indentation of 4 spaces but found 8     indent
+   9:62  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  10:1   error  Expected indentation of 6 spaces but found 12    indent
+  10:71  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  11:1   error  Expected indentation of 4 spaces but found 8     indent
+  11:10  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  12:1   error  Expected indentation of 4 spaces but found 8     indent
+  12:21  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  13:1   error  Expected indentation of 2 spaces but found 4     indent
+  13:7   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  14:1   error  Expected indentation of 2 spaces but found 4     indent
+  14:19  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  15:1   error  Expected indentation of 4 spaces but found 8     indent
+  15:49  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  16:1   error  Expected indentation of 4 spaces but found 8     indent
+  16:22  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  17:1   error  Expected indentation of 2 spaces but found 4     indent
+  17:7   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  18:1   error  Expected indentation of 2 spaces but found 4     indent
+  18:24  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  19:1   error  Expected indentation of 4 spaces but found 8     indent
+  19:49  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  20:1   error  Expected indentation of 4 spaces but found 8     indent
+  20:22  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  21:1   error  Expected indentation of 2 spaces but found 4     indent
+  21:7   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  22:1   error  Expected indentation of 2 spaces but found 4     indent
+  22:24  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  23:1   error  Expected indentation of 4 spaces but found 8     indent
+  23:49  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  24:1   error  Expected indentation of 4 spaces but found 8     indent
+  24:22  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  25:1   error  Expected indentation of 2 spaces but found 4     indent
+  25:7   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  26:1   error  Expected indentation of 2 spaces but found 4     indent
+  26:22  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  27:1   error  Expected indentation of 4 spaces but found 8     indent
+  27:49  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  28:1   error  Expected indentation of 4 spaces but found 8     indent
+  28:22  error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  29:1   error  Expected indentation of 2 spaces but found 4     indent
+  29:7   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  30:3   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+  31:1   error  Expected linebreaks to be 'LF' but found 'CRLF'  linebreak-style
+
+C:\Users\User\Documents\backend-expert-labs\math-api\src\MathBasic.test.js
+   4:1  error  Expected indentation of 2 spaces but found 4   indent
+   5:1  error  Expected indentation of 4 spaces but found 8   indent
+   6:1  error  Expected indentation of 4 spaces but found 8   indent
+   7:1  error  Expected indentation of 4 spaces but found 8   indent
+   8:1  error  Expected indentation of 4 spaces but found 8   indent
+   9:1  error  Expected indentation of 4 spaces but found 8   indent
+  10:1  error  Expected indentation of 4 spaces but found 8   indent
+  11:1  error  Expected indentation of 4 spaces but found 8   indent
+  12:1  error  Expected indentation of 4 spaces but found 8   indent
+  13:1  error  Expected indentation of 2 spaces but found 4   indent
+  14:1  error  Expected indentation of 2 spaces but found 4   indent
+  15:1  error  Expected indentation of 2 spaces but found 4   indent
+  16:1  error  Expected indentation of 4 spaces but found 8   indent
+  17:1  error  Expected indentation of 6 spaces but found 12  indent
+  18:1  error  Expected indentation of 6 spaces but found 12  indent
+  19:1  error  Expected indentation of 6 spaces but found 12  indent
+  20:1  error  Expected indentation of 6 spaces but found 12  indent
+  21:1  error  Expected indentation of 4 spaces but found 8   indent
+  23:1  error  Expected indentation of 4 spaces but found 8   indent
+  24:1  error  Expected indentation of 6 spaces but found 12  indent
+  25:1  error  Expected indentation of 6 spaces but found 12  indent
+  26:1  error  Expected indentation of 6 spaces but found 12  indent
+  27:1  error  Expected indentation of 4 spaces but found 8   indent
+  29:1  error  Expected indentation of 4 spaces but found 8   indent
+  30:1  error  Expected indentation of 6 spaces but found 12  indent
+  31:1  error  Expected indentation of 6 spaces but found 12  indent
+  32:1  error  Expected indentation of 6 spaces but found 12  indent
+  33:1  error  Expected indentation of 4 spaces but found 8   indent
+  34:1  error  Expected indentation of 2 spaces but found 4   indent
+  35:1  error  Expected indentation of 2 spaces but found 4   indent
+  36:1  error  Expected indentation of 2 spaces but found 4   indent
+  37:1  error  Expected indentation of 4 spaces but found 8   indent
+  38:1  error  Expected indentation of 6 spaces but found 12  indent
+  39:1  error  Expected indentation of 6 spaces but found 12  indent
+  40:1  error  Expected indentation of 6 spaces but found 12  indent
+  41:1  error  Expected indentation of 4 spaces but found 8   indent
+  43:1  error  Expected indentation of 4 spaces but found 8   indent
+  44:1  error  Expected indentation of 6 spaces but found 12  indent
+  45:1  error  Expected indentation of 6 spaces but found 12  indent
+  46:1  error  Expected indentation of 6 spaces but found 12  indent
+  47:1  error  Expected indentation of 4 spaces but found 8   indent
+  49:1  error  Expected indentation of 4 spaces but found 8   indent
+  50:1  error  Expected indentation of 6 spaces but found 12  indent
+  51:1  error  Expected indentation of 6 spaces but found 12  indent
+  52:1  error  Expected indentation of 6 spaces but found 12  indent
+  53:1  error  Expected indentation of 4 spaces but found 8   indent
+  54:1  error  Expected indentation of 2 spaces but found 4   indent
+  55:1  error  Expected indentation of 2 spaces but found 4   indent
+  56:1  error  Expected indentation of 2 spaces but found 4   indent
+  57:1  error  Expected indentation of 4 spaces but found 8   indent
+  58:1  error  Expected indentation of 6 spaces but found 12  indent
+  59:1  error  Expected indentation of 6 spaces but found 12  indent
+  60:1  error  Expected indentation of 6 spaces but found 12  indent
+  61:1  error  Expected indentation of 4 spaces but found 8   indent
+  63:1  error  Expected indentation of 4 spaces but found 8   indent
+  64:1  error  Expected indentation of 6 spaces but found 12  indent
+  65:1  error  Expected indentation of 6 spaces but found 12  indent
+  66:1  error  Expected indentation of 6 spaces but found 12  indent
+  67:1  error  Expected indentation of 4 spaces but found 8   indent
+  67:1  error  Expected indentation of 4 spaces but found 8   indent        
+  69:1  error  Expected indentation of 4 spaces but found 8   indent        
+  70:1  error  Expected indentation of 6 spaces but found 12  indent        
+  71:1  error  Expected indentation of 6 spaces but found 12  indent        
+  72:1  error  Expected indentation of 6 spaces but found 12  indent        
+  73:1  error  Expected indentation of 4 spaces but found 8   indent        
+  74:1  error  Expected indentation of 2 spaces but found 4   indent        
+  75:1  error  Expected indentation of 2 spaces but found 4   indent        
+  76:1  error  Expected indentation of 2 spaces but found 4   indent        
+  77:1  error  Expected indentation of 4 spaces but found 8   indent        
+  78:1  error  Expected indentation of 6 spaces but found 12  indent        
+  79:1  error  Expected indentation of 6 spaces but found 12  indent        
+  80:1  error  Expected indentation of 6 spaces but found 12  indent        
+  69:1  error  Expected indentation of 4 spaces but found 8   indent
+  70:1  error  Expected indentation of 6 spaces but found 12  indent
+  71:1  error  Expected indentation of 6 spaces but found 12  indent
+  72:1  error  Expected indentation of 6 spaces but found 12  indent
+  73:1  error  Expected indentation of 4 spaces but found 8   indent
+  74:1  error  Expected indentation of 2 spaces but found 4   indent
+  75:1  error  Expected indentation of 2 spaces but found 4   indent
+  76:1  error  Expected indentation of 2 spaces but found 4   indent
+  77:1  error  Expected indentation of 4 spaces but found 8   indent
+  78:1  error  Expected indentation of 6 spaces but found 12  indent
+  79:1  error  Expected indentation of 6 spaces but found 12  indent
+  80:1  error  Expected indentation of 6 spaces but found 12  indent
+  81:1  error  Expected indentation of 4 spaces but found 8   indent
+  83:1  error  Expected indentation of 4 spaces but found 8   indent
+  84:1  error  Expected indentation of 6 spaces but found 12  indent
+  85:1  error  Expected indentation of 6 spaces but found 12  indent
+  86:1  error  Expected indentation of 6 spaces but found 12  indent
+  87:1  error  Expected indentation of 4 spaces but found 8   indent
+  89:1  error  Expected indentation of 4 spaces but found 8   indent
+  90:1  error  Expected indentation of 6 spaces but found 12  indent
+  91:1  error  Expected indentation of 6 spaces but found 12  indent
+  92:1  error  Expected indentation of 6 spaces but found 12  indent
+  93:1  error  Expected indentation of 4 spaces but found 8   indent
+  94:1  error  Expected indentation of 2 spaces but found 4   indent
+
+✖ 140 problems (140 errors, 0 warnings)
+  140 errors and 0 warnings potentially fixable with the `--fix` option.
+
+
+..\backend-expert-labs\math-api>npm run lint:fix
+
+> math-api@1.0.0 lint:fix
+> eslint . --fix
+
+
+..\backend-expert-labs\math-api>npm run lint
+
+> math-api@1.0.0 lint
+> eslint .
+
+======
