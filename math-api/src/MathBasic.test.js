@@ -52,4 +52,25 @@ describe('A MathBasic', () => {
             expect(MathBasic.subtract(15, 7)).toEqual(8);
         });
     });
+    // Multiply
+    describe('A multiply function', () => {
+        it('should throw error when not given 2 parameters', () => {
+            expect(() => MathBasic.multiply()).toThrow();
+            expect(() => MathBasic.multiply(1)).toThrow();
+            expect(() => MathBasic.multiply(1, 2, 3)).toThrow();
+        });
+
+        it('should throw error when given non-number parameters', () => {
+            expect(() => MathBasic.multiply('1', '2')).toThrow();
+            expect(() => MathBasic.multiply(true, false)).toThrow();
+            expect(() => MathBasic.multiply([], {})).toThrow();
+        });
+
+        it('should return a * b when given two number parameters', () => {
+            expect(MathBasic.multiply(3, 4)).toEqual(12);
+            expect(MathBasic.multiply(7, 6)).toEqual(42);
+            expect(MathBasic.multiply(5, 5)).toEqual(25);
+        });
+    });
+    
 });
