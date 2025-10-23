@@ -516,3 +516,14 @@ Time:        0.798 s, estimated 1 s
 Ran all test suites.
 
 ======
+..\math-api>npm run lint
+
+> math-api@1.0.0 lint
+> eslint .
+
+..\math-api>npm run lint:fix
+
+> math-api@1.0.0 lint:fix
+> eslint . --fix
+
+======
