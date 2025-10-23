@@ -143,3 +143,50 @@ Tests:       4 passed, 4 total
 Snapshots:   0 total
 Time:        2.097 s
 Ran all test suites.
+
+---
+..\backend-expert-labs\math-api>npm test
+
+> math-api@1.0.0 test
+> jest --watchAll --coverage
+ PASS  src/MathBasic.test.js
+  A MathBasic
+    √ should contains add, subtract, multiply, and divide function (5 ms)
+    A add function
+      √ should throw error when not given 2 parameters (12 ms)
+      √ should throw error when given non-number parameters (1 ms)
+      √ should return a + b when given two number parameters (2 ms)
+    A subtract function
+      √ should throw error when not given 2 parameters (1 ms)
+      √ should throw error when given non-number parameters (5 ms)
+      √ should return a - b when given two number parameters
+    A multiply function
+      √ should throw error when not given 2 parameters (2 ms)
+      √ should throw error when given non-number parameters (2 ms)
+      √ should return a * b when given two number parameters (1 ms)
+    A divide function
+      √ should throw error when not given 2 parameters (1 ms)
+      √ should throw error when given non-number parameters (2 ms)
+      √ should return a / b when given two number parameters
+
+--------------|---------|----------|---------|---------|-------------------
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------|---------|----------|---------|---------|-------------------
+All files     |     100 |      100 |     100 |     100 |                   
+ MathBasic.js |     100 |      100 |     100 |     100 |                   
+--------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       13 passed, 13 total
+Snapshots:   0 total
+Time:        0.712 s, estimated 1 s
+Ran all test suites.
+
+Watch Usage
+ › Press f to run only failed tests.
+ › Press o to only run tests related to changed files.
+ › Press p to filter by a filename regex pattern.
+ › Press t to filter by a test name regex pattern.
+ › Press q to quit watch mode.
+ › Press Enter to trigger a test run.
+
+======
