@@ -32,7 +32,21 @@ class FigureCalculator {
         // formula: (length * width)
         return this._mathBasic.multiply(length, width);
     }
-    calculateTrianglePerimeter() { }
+
+    calculateTrianglePerimeter(...args) {
+        if (args.length !== 3) {
+            throw new Error('fungsi hanya menerima tiga parameter');
+        }
+
+        const [sideA, sideB, base] = args;
+
+        if (typeof sideA !== 'number' || typeof sideB !== 'number' || typeof base !== 'number') {
+            throw new Error('fungsi hanya menerima parameter number');
+        }
+
+        // formula: (sideA + sideB + base)
+        return this._mathBasic.add(sideA, this._mathBasic.add(sideB, base));
+    }
     calculateTriangleArea() { }
 }
 

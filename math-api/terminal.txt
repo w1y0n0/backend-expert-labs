@@ -481,4 +481,21 @@ Snapshots:   0 total
 Time:        0.76 s, estimated 1 s
 Ran all test suites.
 
+Watch Usage: Press w to show more.
+ PASS  src/MathBasic.test.js
+ PASS  src/FigureCalculator.test.js
+---------------------|---------|----------|---------|---------|-------------------   
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s    
+---------------------|---------|----------|---------|---------|-------------------   
+All files            |     100 |      100 |      90 |     100 |                      
+ FigureCalculator.js |     100 |      100 |      80 |     100 |                      
+ MathBasic.js        |     100 |      100 |     100 |     100 |                      
+---------------------|---------|----------|---------|---------|-------------------   
+
+Test Suites: 2 passed, 2 total
+Tests:       23 passed, 23 total
+Snapshots:   0 total
+Time:        0.582 s, estimated 1 s
+Ran all test suites.
+
 ======
