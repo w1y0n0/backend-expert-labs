@@ -47,7 +47,21 @@ class FigureCalculator {
         // formula: (sideA + sideB + base)
         return this._mathBasic.add(sideA, this._mathBasic.add(sideB, base));
     }
-    calculateTriangleArea() { }
+
+    calculateTriangleArea(...args) {
+        if (args.length !== 2) {
+            throw new Error('fungsi hanya menerima dua parameter');
+        }
+
+        const [base, height] = args;
+
+        if (typeof base !== 'number' || typeof height !== 'number') {
+            throw new Error('fungsi hanya menerima parameter number');
+        }
+
+        // formula: ((base * height) / 2)
+        return this._mathBasic.divide(this._mathBasic.multiply(base, height), 2);
+    }
 }
 
 module.exports = FigureCalculator;

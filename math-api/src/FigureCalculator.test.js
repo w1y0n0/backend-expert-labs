@@ -117,4 +117,39 @@ describe('A FigureCalculator', () => {
             expect(spyAdd).toBeCalledWith(sideA, (sideB + base));
         });
     });
+
+    describe('A calculateTriangleArea function', () => {
+        it('should throw error when not given 2 parameters', () => {
+            const figureCalculator = new FigureCalculator({});
+
+            expect(() => figureCalculator.calculateTriangleArea()).toThrowError();
+            expect(() => figureCalculator.calculateTriangleArea(1)).toThrowError();
+            expect(() => figureCalculator.calculateTriangleArea(1, 2, 3)).toThrowError();
+        });
+
+        it('should throw error when given with non-number parameters', () => {
+            const figureCalculator = new FigureCalculator({});
+
+            expect(() => figureCalculator.calculateTriangleArea(1, '2')).toThrowError();
+            expect(() => figureCalculator.calculateTriangleArea({}, null)).toThrowError();
+            expect(() => figureCalculator.calculateTriangleArea(true, false)).toThrowError();
+        });
+
+        it('should return correct value based on triangle area formula', () => {
+            // Arrange
+            const base = 10;
+            const height = 15;
+            const spyMultiply = jest.spyOn(MathBasic, 'multiply');
+            const spyDivide = jest.spyOn(MathBasic, 'divide');
+            const figureCalculator = new FigureCalculator(MathBasic);
+
+            // Action
+            const result = figureCalculator.calculateTriangleArea(base, height);
+
+            // Assert
+            expect(result).toEqual(75); // (base * height) / 2
+            expect(spyMultiply).toBeCalledWith(base, height);
+            expect(spyDivide).toBeCalledWith(150, 2);
+        });
+    });
 });
