@@ -1,0 +1,65 @@
+..\test-double-example>npm init --y
+Wrote to C:\Users\User\Documents\backend-expert-labs\test-double-example\package.json:
+
+{
+  "name": "test-double-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+======
+..\test-double-example>npm install --save-dev @types/jest jest
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 299 packages, and audited 300 packages in 17s
+
+44 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+downgrade package.json:
+"devDependencies": {
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0"
+  }
+
+..\test-double-example>npm install
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 16 packages, removed 48 packages, changed 61 packages, and audited 268 packages in 7s    
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+..\test-double-example>npm run test
+
+> test-double-example@1.0.0 test
+> jest
+
+ PASS  src/RocketLauncher.test.js
+  A RocketLauncher
+    √ should launch all rockets (2 ms)
+    √ should launch only one rocket by queue
+    √ should return correct result when repair kit cannot repair the rocket
+    √ should repair some repairable rocket when repair kit cannot repair some the rocket (2 ms)
+    √ should repair all the rockets with repair kit correctly (1027 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        2.438 s
+Ran all test suites.
+
+======
