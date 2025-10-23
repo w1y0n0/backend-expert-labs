@@ -1,6 +1,6 @@
 const MathBasic = require('./MathBasic');
 
- describe('A MathBasic', () => {
+describe('A MathBasic', () => {
     it('should contains add, subtract, multiply, and divide function', () => {
         expect(MathBasic).toHaveProperty('add');
         expect(MathBasic).toHaveProperty('subtract');
@@ -19,5 +19,11 @@ const MathBasic = require('./MathBasic');
             expect(() => MathBasic.add(1, 2, 3)).toThrow();
             expect(() => MathBasic.add(1, 2, 3, 4)).toThrow();
         });
+
+        it('should throw error when given non-number parameters', () => {
+            expect(() => MathBasic.add('1', '2')).toThrow();
+            expect(() => MathBasic.add(true, {})).toThrow();
+            expect(() => MathBasic.add(null, false)).toThrow();
+        });
     });
- });
+});
