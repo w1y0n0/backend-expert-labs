@@ -3,7 +3,11 @@ class FigureCalculator {
         this._mathBasic = mathBasic;
     }
 
-    calculateRectanglePerimeter() { }
+    calculateRectanglePerimeter(...args) {
+        if (args.length !== 2) {
+            throw new Error('fungsi hanya menerima dua parameter');
+        }
+    }
     calculateRectangleArea() { }
     calculateTrianglePerimeter() { }
     calculateTriangleArea() { }

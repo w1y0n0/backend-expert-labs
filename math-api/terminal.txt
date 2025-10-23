@@ -392,3 +392,42 @@ Time:        0.603 s, estimated 1 s
 Ran all test suites.
 
 ======
+downgrade jest:
+"devDependencies": {
+  ...
+  "@types/jest": "^29.5.11",
+  "jest": "^29.7.0"
+}
+---
+..\math-api>npm install
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 16 packages, removed 54 packages, changed 66 packages, and audited 329 packages in 15s
+
+50 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+\math-api>npm test
+
+> math-api@1.0.0 test
+> jest --watchAll --coverage
+ PASS  src/FigureCalculator.test.js
+ PASS  src/MathBasic.test.js
+---------------------|---------|----------|---------|---------|-------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+---------------------|---------|----------|---------|---------|-------------------
+All files            |     100 |     87.5 |      70 |     100 |                   
+ FigureCalculator.js |     100 |       50 |      40 |     100 | 7                 
+ MathBasic.js        |     100 |      100 |     100 |     100 |                   
+---------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 2 passed, 2 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        0.74 s, estimated 1 s
+Ran all test suites.
+
+======
