@@ -1,0 +1,56 @@
+..\gherkin-nodejs-example>npm init --y
+Wrote to C:\Users\User\Documents\backend-expert-labs\gherkin-nodejs-example\package.json:
+
+{
+  "name": "gherkin-nodejs-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+======
+..\gherkin-nodejs-example>npm install @cucumber/cucumber --save-dev
+
+added 144 packages, and audited 226 packages in 9s
+
+39 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+..\gherkin-nodejs-example>npm install --save-dev @cucumber/cucumber
+
+
+changed 2 packages, and audited 164 packages in 1s
+
+33 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+..\gherkin-nodejs-example>npx cucumber-js                          
+
+
+0 scenarios
+0 steps
+0m00.000s (executing steps: 0m00.000s)
+
+..\gherkin-nodejs-example>npm test       
+
+> gherkin-nodejs-example@1.0.0 test
+> cucumber-js test
+
+...........................
+
+9 scenarios (9 passed)
+27 steps (27 passed)
+0m00.017s (executing steps: 0m00.002s)
+
+=====
