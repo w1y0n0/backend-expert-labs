@@ -120,3 +120,26 @@ C:\Users\User\Documents\backend-expert-labs\math-api\eslint.config.mjs
 > eslint . --fix
 
 ======
+..\backend-expert-labs\math-api>npm test
+
+> math-api@1.0.0 test
+> jest --watchAll --coverage
+ PASS  src/MathBasic.test.js
+  A MathBasic
+    √ should contains add, subtract, multiply, and divide function (5 ms)
+    A add function
+      √ should throw error when not given 2 parameters (7 ms)
+      √ should throw error when given non-number parameters (2 ms)
+      √ should return a + b when given two number parameters (3 ms)
+
+--------------|---------|----------|---------|---------|-------------------
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------|---------|----------|---------|---------|-------------------
+All files     |     100 |      100 |      25 |     100 |                   
+ MathBasic.js |     100 |      100 |      25 |     100 |                   
+--------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        2.097 s
+Ran all test suites.
