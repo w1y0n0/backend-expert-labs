@@ -1,0 +1,74 @@
+======
+..\hapi-test-example>npm init --y
+Wrote to D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\hapi-test-example\package.json:
+
+{
+  "name": "hapi-test-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+
+======
+..\hapi-test-example>npm install @hapi/hapi
+
+added 30 packages, and audited 31 packages in 51s
+
+found 0 vulnerabilities
+
+======
+..\hapi-test-example>npm install --save-dev @types//jest jest
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested wayy to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 324 packages, and audited 355 packages in 4m
+
+44 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+downgrade
+---
+"devDependencies": {
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0"
+  }
+
+---
+..\hapi-test-example>npm install
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 16 packages, removed 72 packages, changed 61 packages, and audited 299 packages in 39s
+
+32 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+..\hapi-test-example>npm test
+
+> hapi-test-example@1.0.0 test
+> jest
+
+ PASS  src/createServer.test.js
+  Hapi Server
+    √ should response 200 with payload value "Hello World" when GET /hello (64 ms)
+    √ should response 200 with payload value "Hello john" when GET /hello/john (15 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        1.359 s, estimated 8 s
+Ran all test suites.
+
+======
