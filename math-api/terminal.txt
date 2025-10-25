@@ -558,3 +558,25 @@ added 364 packages, and audited 365 packages in 1m
 found 0 vulnerabilities
 
 ======
+..\math-api>npm test
+ PASS  src/MathBasic.test.js
+ PASS  src/FigureCalculator.test.js
+ PASS  src/createServer.test.js
+---------------------|---------|----------|---------|---------|-------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+---------------------|---------|----------|---------|---------|-------------------
+All files            |     100 |      100 |     100 |     100 | 
+ FigureCalculator.js |     100 |      100 |     100 |     100 | 
+ MathBasic.js        |     100 |      100 |     100 |     100 | 
+ createServer.js     |     100 |      100 |     100 |     100 | 
+---------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 3 passed, 3 total     
+Tests:       28 passed, 28 total   
+Snapshots:   0 total
+Time:        1.572 s, estimated 3 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
