@@ -527,3 +527,34 @@ Ran all test suites.
 > eslint . --fix
 
 ======
+207-math-api-hapi-test
+---
+../backend-expert-labs/hapi-test-example (main)
+$ git checkout -b 205-figure-calculator origin/205-figure-calculator
+branch '205-figure-calculator' set up to track 'origin/205-figure-calculator'.
+Switched to a new branch '205-figure-calculator'
+
+../backend-expert-labs/hapi-test-example (205-figure-calculator)
+$ cd ..
+
+../backend-expert-labs (205-figure-calculator)
+$ cd math-api/
+
+../backend-expert-labs/math-api (205-figure-calculator)
+$ git checkout -b 207-math-api-hapi-test
+Switched to a new branch '207-math-api-hapi-test'
+
+../backend-expert-labs/math-api (207-math-api-hapi-test)
+$ npm install @hapi/hapi
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way 
+to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 364 packages, and audited 365 packages in 1m
+
+50 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======

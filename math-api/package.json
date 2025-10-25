@@ -18,5 +18,8 @@
     "eslint-config-dicodingacademy": "^0.9.5",
     "globals": "^16.4.0",
     "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.4.3"
   }
 }
