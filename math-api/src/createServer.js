@@ -52,6 +52,15 @@ const createServer = ({ mathBasic, figureCalculator }) => {
                 return { value };
             },
         },
+        {
+            method: 'GET',
+            path: '/rectangle/area/{length}/{width}',
+            handler: (request) => {
+                const { length, width } = request.params;
+                const value = figureCalculator.calculateRectangleArea(Number(length), Number(width));
+                return { value };
+            },
+        },
     ]);
 
     return server;
