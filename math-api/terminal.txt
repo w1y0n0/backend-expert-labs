@@ -580,3 +580,22 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+..\math-api>npm test
+---------------------|---------|----------|---------|---------|-------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+---------------------|---------|----------|---------|---------|-------------------
+All files            |     100 |      100 |     100 |     100 | 
+ FigureCalculator.js |     100 |      100 |     100 |     100 | 
+ MathBasic.js        |     100 |      100 |     100 |     100 | 
+ createServer.js     |     100 |      100 |     100 |     100 | 
+---------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 3 passed, 3 total     
+Tests:       29 passed, 29 total   
+Snapshots:   0 total
+Time:        1.734 s, estimated 2 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
