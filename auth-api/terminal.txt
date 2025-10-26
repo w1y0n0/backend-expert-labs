@@ -1,0 +1,120 @@
+Wiyono@DESKTOP-200LNFH MINGW64 /d/Programming/Dicoding/Dicoding-Back-End/7_Menjadi_Back-End_Developer_Expert/files/backend-expert-labs (208-math-api-final)
+$ git checkout -b 301-auth-api-user-registration main
+Switched to a new branch '301-auth-api-user-registration'
+
+Wiyono@DESKTOP-200LNFH MINGW64 /d/Programming/Dicoding/Dicoding-Back-End/7_Menjadi_Back-End_Developer_Expert/files/backend-expert-labs (301-auth-api-user-registration)
+$ git branch
+  205-figure-calculator
+  206-hapi-test-example
+  207-math-api-hapi-test
+  208-math-api-final
+* 301-auth-api-user-registration
+  main
+
+======
+..\auth-api>npm init --y
+Wrote to D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\auth-api\package.json:
+
+{
+  "name": "auth-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+
+======
+..\auth-api>npm install @hapi/hapi @hapi/jwt bcrypt dotenv nanoid@3.x.x pg
+
+added 61 packages, and audited 62 packages in 12s
+
+3 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+..\auth-api>npm install @types/jest eslint jest node-pg-migrate nodemon --save-dev
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+
+added 411 packages, and audited 473 packages in 46s
+
+71 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+..\auth-api>npx eslint --init
+You can also run this command directly using 'npm init @eslint/config@latest'.
+
+> auth-api@1.0.0 npx
+> create-config
+
+@eslint/create-config: v1.10.0
+
+√ What do you want to lint? · javascript
+√ How would you like to use ESLint? · problems    
+√ What type of modules does your project use? · commonjs
+√ Which framework does your project use? · none
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · node
+The config that you've selected requires the following dependencies:
+
+eslint, @eslint/js, globals
+√ Would you like to install them now? · No / Yes
+√ Which package manager do you want to use? · npm
+☕️Installing...
+
+added 1 package, changed 1 package, and audited 474 packages in 2s
+
+72 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+Successfully created D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\auth-api\eslint.config.mjs file.
+
+---
+..\auth-api>npm install eslint-config-dicodingacademy --save-dev
+
+added 1 package, and audited 475 packages in 2s
+
+72 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+..\auth-api>npm run lint
+
+> auth-api@1.0.0 lint
+> eslint .
+
+
+D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\auth-api\eslint.config.mjs
+  1:16  error  Strings must use singlequote  quotes
+  2:21  error  Strings must use singlequote  quotes
+  3:30  error  Strings must use singlequote  quotes
+  4:21  error  Strings must use singlequote  quotes
+  8:13  error  Strings must use singlequote  quotes
+  8:62  error  Strings must use singlequote  quotes
+  9:13  error  Strings must use singlequote  quotes
+  9:56  error  Strings must use singlequote  quotes
+
+✖ 8 problems (8 errors, 0 warnings)
+  8 errors and 0 warnings potentially fixable with the `--fix` option.
+
+
+..\auth-api>npm run lint:fix
+
+> auth-api@1.0.0 lint:fix
+> eslint . --fix
+
+======
