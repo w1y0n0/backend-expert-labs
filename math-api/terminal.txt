@@ -694,3 +694,11 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+..\math-api>npm run start
+
+> math-api@1.0.0 start
+> node src/app.js     
+
+Server start at http://localhost:5000
+
+======
