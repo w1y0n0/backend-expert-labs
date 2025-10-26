@@ -118,3 +118,97 @@ D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\fi
 > eslint . --fix
 
 ======
+Menyiapkan Kebutuhan Database
+------
+..\auth-api>psql --username postgres
+Password for user postgres: 
+psql (13.21)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# CREATE DATABASE authapi; CREATE DATABASE authapi_test;
+CREATE DATABASE
+CREATE DATABASE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE authapi, authapi_test TO developer;
+GRANT      
+postgres=# exit
+
+======
+..\auth-api>npm run migrate create "create table users"
+
+> auth-api@1.0.0 migrate
+> node-pg-migrate create create table users
+
+[dotenv@17.2.3] injecting env (5) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+Created migration -- D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\auth-api\migrations\1761481803267_create-table-users.js
+
+======
+..\auth-api>npm run migrate create "create table authentications"
+
+> auth-api@1.0.0 migrate
+> node-pg-migrate create create table authentications
+
+[dotenv@17.2.3] injecting env (5) from .env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+Created migration -- D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\auth-api\migrations\1761482709471_create-table-authentications.js
+
+======
+..\auth-api>npm run migrate up
+
+> auth-api@1.0.0 migrate
+> node-pg-migrate up
+
+[dotenv@17.2.3] injecting env (5) from .env -- tip: 👥 sync secrets across teammates & machines: https://dotenvx.com/ops
+> Migrating files:
+> - 1761481803267_create-table-users
+> - 1761482709471_create-table-authentications
+### MIGRATION 1761481803267_create-table-users (UP) ###
+CREATE TABLE "users" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "username" VARCHAR(50) UNIQUE NOT NULL,
+  "password" TEXT NOT NULL,
+  "fullname" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1761481803267_create-table-users', NOW());
+
+
+### MIGRATION 1761482709471_create-table-authentications (UP) ###
+CREATE TABLE "authentications" (
+  "token" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1761482709471_create-table-authentications', NOW());
+
+
+Migrations complete!
+
+======
+..\auth-api>npm run migrate:test up 
+
+> auth-api@1.0.0 migrate:test
+> node-pg-migrate --envPath .test.env up
+
+[dotenv@17.2.3] injecting env (5) from .test.env -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+> Migrating files:
+> - 1761481803267_create-table-users
+> - 1761482709471_create-table-authentications
+### MIGRATION 1761481803267_create-table-users (UP) ###
+CREATE TABLE "users" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "username" VARCHAR(50) UNIQUE NOT NULL,
+  "password" TEXT NOT NULL,
+  "fullname" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1761481803267_create-table-users', NOW());
+
+
+### MIGRATION 1761482709471_create-table-authentications (UP) ###
+CREATE TABLE "authentications" (
+  "token" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1761482709471_create-table-authentications', NOW());
+
+
+Migrations complete!
+
+======
