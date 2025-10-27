@@ -503,3 +503,41 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+ PASS  src/Applications/security/_test/PasswordHash.test.js
+ PASS  src/Domains/users/_test/UserRepository.test.js        
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js  
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Commons/exceptions/_test/ClientError.test.js      
+ PASS  src/Applications/use_case/_test/AddUserUseCase.test.js
+-------------------------|---------|----------|---------|---------|-------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------------|---------|----------|---------|---------|-------------------
+All files                |     100 |      100 |     100 |     100 |                   
+ Applications/security   |     100 |      100 |     100 |     100 |
+  PasswordHash.js        |     100 |      100 |     100 |     100 |
+ Applications/use_case   |     100 |      100 |     100 |     100 |
+  AddUserUseCase.js      |     100 |      100 |     100 |     100 |
+ Commons/exceptions      |     100 |      100 |     100 |     100 |
+  AuthenticationError.js |     100 |      100 |     100 |     100 |
+  ClientError.js         |     100 |      100 |     100 |     100 |
+  InvariantError.js      |     100 |      100 |     100 |     100 |
+  NotFoundError.js       |     100 |      100 |     100 |     100 |
+ Domains/users           |     100 |      100 |     100 |     100 |
+  UserRepository.js      |     100 |      100 |     100 |     100 |
+ Domains/users/entities  |     100 |      100 |     100 |     100 |
+  RegisterUser.js        |     100 |      100 |     100 |     100 |
+  RegisteredUser.js      |     100 |      100 |     100 |     100 |
+-------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 9 passed, 9 total
+Tests:       15 passed, 15 total
+Snapshots:   0 total
+Time:        2.075 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
