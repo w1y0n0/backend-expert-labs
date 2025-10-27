@@ -541,3 +541,53 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+ PASS  src/Applications/security/_test/PasswordHash.test.js
+ PASS  src/Applications/use_case/_test/AddUserUseCase.test.js
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Domains/users/_test/UserRepository.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Infrastructures/repository/_test/UserRepositoryPostgres.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.2.3] injecting env (0) from .test.env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+
+      at _log (node_modules/dotenv/lib/main.js:142:11)
+
+----------------------------|---------|----------|---------|---------|-------------------
+File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------------------------|---------|----------|---------|---------|-------------------
+All files                   |   98.71 |    96.77 |     100 |   98.71 | 
+ Applications/security      |     100 |      100 |     100 |     100 | 
+  PasswordHash.js           |     100 |      100 |     100 |     100 | 
+ Applications/use_case      |     100 |      100 |     100 |     100 | 
+  AddUserUseCase.js         |     100 |      100 |     100 |     100 | 
+ Commons                    |   85.71 |       50 |     100 |   85.71 | 
+  config.js                 |   85.71 |       50 |     100 |   85.71 | 9                 
+ Commons/exceptions         |     100 |      100 |     100 |     100 |                   
+  AuthenticationError.js    |     100 |      100 |     100 |     100 |                   
+  ClientError.js            |     100 |      100 |     100 |     100 |                   
+  InvariantError.js         |     100 |      100 |     100 |     100 |                   
+  NotFoundError.js          |     100 |      100 |     100 |     100 |                   
+ Domains/users              |     100 |      100 |     100 |     100 | 
+  UserRepository.js         |     100 |      100 |     100 |     100 | 
+ Domains/users/entities     |     100 |      100 |     100 |     100 | 
+  RegisterUser.js           |     100 |      100 |     100 |     100 | 
+  RegisteredUser.js         |     100 |      100 |     100 |     100 | 
+ Infrastructures/repository |     100 |      100 |     100 |     100 | 
+  UserRepositoryPostgres.js |     100 |      100 |     100 |     100 | 
+----------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 10 passed, 10 total
+Tests:       19 passed, 19 total
+Snapshots:   0 total
+Time:        2.269 s, estimated 3 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
