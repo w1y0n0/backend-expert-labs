@@ -407,3 +407,32 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+-------------------------|---------|----------|---------|---------|-------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------|---------|----------|---------|---------|-------------------
+All files                |     100 |      100 |     100 |     100 | 
+ Commons/exceptions      |     100 |      100 |     100 |     100 | 
+  AuthenticationError.js |     100 |      100 |     100 |     100 | 
+  ClientError.js         |     100 |      100 |     100 |     100 | 
+  InvariantError.js      |     100 |      100 |     100 |     100 | 
+  NotFoundError.js       |     100 |      100 |     100 |     100 | 
+ Domains/users/entities  |     100 |      100 |     100 |     100 | 
+  RegisterUser.js        |     100 |      100 |     100 |     100 | 
+  RegisteredUser.js      |     100 |      100 |     100 |     100 | 
+-------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 6 passed, 6 total  
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        2.114 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
