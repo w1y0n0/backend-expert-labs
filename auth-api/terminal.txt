@@ -212,3 +212,80 @@ INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1761482709471_create
 Migrations complete!
 
 ======
+..\auth-api>npm run test:watch
+ FAIL  src/Commons/exceptions/_test/ClientError.test.js
+  ● Test suite failed to run
+
+    Cannot find module '../ClientError' from 'src/Commons/exceptions/_test/ClientError.test.js'
+ FAIL  src/Commons/exceptions/_test/ClientError.test.js
+  ClientError
+    × should throw error when directly use it (16 ms)
+
+  ● ClientError › should throw error when directly use it
+
+    TypeError: expect(...).toThrowError is not a function
+
+      3 | describe('ClientError', () => {
+      4 |     it('should throw error when directly use it', () => {
+    > 5 |         expect(() => new ClientError('')).toThrowError('cannot instantiate abstract class');
+        |                                           ^
+      6 |     });
+      7 | });
+
+      at Object.toThrowError (src/Commons/exceptions/_test/ClientError.test.js:5:43)
+
+----------------|---------|----------|---------|---------|-------------------
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------------|---------|----------|---------|---------|-------------------
+All files       |       0 |        0 |       0 |       0 | 
+ ClientError.js |       0 |        0 |       0 |       0 | 
+----------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        5.54 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
+downgrade
+---
+"devDependencies": {
+    ...
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0",
+    ...
+  }
+
+---
+..\auth-api>npm install
+
+up to date, audited 453 packages in 2s
+
+67 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+======
+..\auth-api>npm run test:watch
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+  ClientError
+    √ should throw error when directly use it (19 ms)
+
+----------------|---------|----------|---------|---------|-------------------
+File            | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------|---------|----------|---------|---------|-------------------
+All files       |   66.66 |    66.66 |     100 |   66.66 |                   
+ ClientError.js |   66.66 |    66.66 |     100 |   66.66 | 9-10              
+----------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.511 s, estimated 2 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
