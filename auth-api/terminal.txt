@@ -329,3 +329,26 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+------------------------|---------|----------|---------|---------|-------------------
+File                    | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------------------|---------|----------|---------|---------|-------------------
+All files               |     100 |      100 |     100 |     100 |                   
+ AuthenticationError.js |     100 |      100 |     100 |     100 |                   
+ ClientError.js         |     100 |      100 |     100 |     100 |                   
+ InvariantError.js      |     100 |      100 |     100 |     100 |                   
+ NotFoundError.js       |     100 |      100 |     100 |     100 |                   
+------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 4 passed, 4 total     
+Tests:       4 passed, 4 total     
+Snapshots:   0 total
+Time:        1.664 s, estimated 2 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
