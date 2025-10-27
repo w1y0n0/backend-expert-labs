@@ -591,3 +591,38 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+----------------------------|---------|----------|---------|---------|-------------------
+File                        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------------------|---------|----------|---------|---------|-------------------
+All files                   |    98.8 |    96.87 |     100 |    98.8 |                   
+ Applications/security      |     100 |      100 |     100 |     100 |                   
+  PasswordHash.js           |     100 |      100 |     100 |     100 |                   
+ Applications/use_case      |     100 |      100 |     100 |     100 |                   
+  AddUserUseCase.js         |     100 |      100 |     100 |     100 |                   
+ Commons                    |   85.71 |       50 |     100 |   85.71 |                   
+  config.js                 |   85.71 |       50 |     100 |   85.71 | 9                 
+ Commons/exceptions         |     100 |      100 |     100 |     100 |                   
+  AuthenticationError.js    |     100 |      100 |     100 |     100 |                   
+  ClientError.js            |     100 |      100 |     100 |     100 |                   
+  InvariantError.js         |     100 |      100 |     100 |     100 |                   
+  NotFoundError.js          |     100 |      100 |     100 |     100 | 
+ Domains/users              |     100 |      100 |     100 |     100 | 
+  UserRepository.js         |     100 |      100 |     100 |     100 | 
+ Domains/users/entities     |     100 |      100 |     100 |     100 | 
+  RegisterUser.js           |     100 |      100 |     100 |     100 | 
+  RegisteredUser.js         |     100 |      100 |     100 |     100 | 
+ Infrastructures/repository |     100 |      100 |     100 |     100 | 
+  UserRepositoryPostgres.js |     100 |      100 |     100 |     100 | 
+ Infrastructures/security   |     100 |      100 |     100 |     100 | 
+  BcryptPasswordHash.js     |     100 |      100 |     100 |     100 | 
+----------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 11 passed, 11 total
+Tests:       20 passed, 20 total
+Snapshots:   0 total
+Time:        1.908 s, estimated 2 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
