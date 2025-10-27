@@ -468,3 +468,38 @@ Ran all test suites.
 Watch Usage: Press w to show more.
 
 ======
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js
+ PASS  src/Domains/users/_test/UserRepository.test.js       
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Commons/exceptions/_test/ClientError.test.js       
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Applications/security/_test/PasswordHash.test.js
+-------------------------|---------|----------|---------|---------|-------------------
+File                     | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+-------------------------|---------|----------|---------|---------|-------------------
+All files                |     100 |      100 |     100 |     100 | 
+ Applications/security   |     100 |      100 |     100 |     100 | 
+  PasswordHash.js        |     100 |      100 |     100 |     100 | 
+ Commons/exceptions      |     100 |      100 |     100 |     100 | 
+  AuthenticationError.js |     100 |      100 |     100 |     100 | 
+  ClientError.js         |     100 |      100 |     100 |     100 | 
+  InvariantError.js      |     100 |      100 |     100 |     100 | 
+  NotFoundError.js       |     100 |      100 |     100 |     100 | 
+ Domains/users           |     100 |      100 |     100 |     100 | 
+  UserRepository.js      |     100 |      100 |     100 |     100 | 
+ Domains/users/entities  |     100 |      100 |     100 |     100 | 
+  RegisterUser.js        |     100 |      100 |     100 |     100 | 
+  RegisteredUser.js      |     100 |      100 |     100 |     100 | 
+-------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 8 passed, 8 total
+Tests:       14 passed, 14 total
+Snapshots:   0 total
+Time:        1.661 s, estimated 2 s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+
+======
