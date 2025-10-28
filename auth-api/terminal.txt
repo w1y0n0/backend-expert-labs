@@ -132,7 +132,15 @@ postgres=# CREATE DATABASE authapi; CREATE DATABASE authapi_test;
 CREATE DATABASE
 CREATE DATABASE
 postgres=# GRANT ALL PRIVILEGES ON DATABASE authapi, authapi_test TO developer;
-GRANT      
+GRANT
+
+-- Catatan: Untuk PostgreSQL versi 15 ke atas -- 
+postgres=# ALTER DATABASE authapi OWNER TO developer;
+ALTER DATABASE
+postgres=# ALTER DATABASE authapi_test OWNER TO developer;
+ALTER DATABASE
+-- End Catatan --
+
 postgres=# exit
 
 ======
