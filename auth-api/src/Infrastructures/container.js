@@ -21,52 +21,52 @@ const container = createContainer();
 
 // registering services and repository
 container.register([
-    {
-        key: UserRepository.name,
-        Class: UserRepositoryPostgres,
-        parameter: {
-            dependencies: [
-                {
-                    concrete: pool,
-                },
-                {
-                    concrete: nanoid,
-                },
-            ],
+  {
+    key: UserRepository.name,
+    Class: UserRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        {
+          concrete: pool,
         },
-    },
-    {
-        key: PasswordHash.name,
-        Class: BcryptPasswordHash,
-        parameter: {
-            dependencies: [
-                {
-                    concrete: bcrypt,
-                },
-            ],
+        {
+          concrete: nanoid,
         },
+      ],
     },
+  },
+  {
+    key: PasswordHash.name,
+    Class: BcryptPasswordHash,
+    parameter: {
+      dependencies: [
+        {
+          concrete: bcrypt,
+        },
+      ],
+    },
+  },
 ]);
 
 // registering use cases
 container.register([
-    {
-        key: AddUserUseCase.name,
-        Class: AddUserUseCase,
-        parameter: {
-            injectType: 'destructuring',
-            dependencies: [
-                {
-                    name: 'userRepository',
-                    internal: UserRepository.name,
-                },
-                {
-                    name: 'passwordHash',
-                    internal: PasswordHash.name,
-                },
-            ],
+  {
+    key: AddUserUseCase.name,
+    Class: AddUserUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'userRepository',
+          internal: UserRepository.name,
         },
+        {
+          name: 'passwordHash',
+          internal: PasswordHash.name,
+        },
+      ],
     },
+  },
 ]);
 
 module.exports = container;
