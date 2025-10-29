@@ -1155,3 +1155,75 @@ Time:        17.375 s, estimated 45 s
 Ran all test suites.
 
 ======
+..\auth-api>npm run test:watch
+--------------------------------------|---------|----------|---------|---------|-------------------
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------------|---------|----------|---------|---------|-------------------
+All files                             |     100 |      100 |     100 |     100 |                   
+ Applications/security                |     100 |      100 |     100 |     100 |                   
+  AuthenticationTokenManager.js       |     100 |      100 |     100 |     100 |                   
+  PasswordHash.js                     |     100 |      100 |     100 |     100 |                   
+ Applications/use_case                |     100 |      100 |     100 |     100 |                  
+  AddUserUseCase.js                   |     100 |      100 |     100 |     100 |                  
+  LoginUserUseCase.js                 |     100 |      100 |     100 |     100 |                  
+  LogoutUserUseCase.js                |     100 |      100 |     100 |     100 |                  
+  RefreshAuthenticationUseCase.js     |     100 |      100 |     100 |     100 |                  
+ Commons/exceptions                   |     100 |      100 |     100 |     100 |                  
+  AuthenticationError.js              |     100 |      100 |     100 |     100 |                  
+  ClientError.js                      |     100 |      100 |     100 |     100 |                  
+  DomainErrorTranslator.js            |     100 |      100 |     100 |     100 |                  
+  InvariantError.js                   |     100 |      100 |     100 |     100 |                  
+  NotFoundError.js                    |     100 |      100 |     100 |     100 |                  
+ Domains/authentications              |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepository.js         |     100 |      100 |     100 |     100 |                  
+ Domains/authentications/entities     |     100 |      100 |     100 |     100 |                  
+  NewAuth.js                          |     100 |      100 |     100 |     100 |                  
+ Domains/users                        |     100 |      100 |     100 |     100 |                  
+  UserRepository.js                   |     100 |      100 |     100 |     100 |                  
+ Domains/users/entities               |     100 |      100 |     100 |     100 |                  
+  RegisterUser.js                     |     100 |      100 |     100 |     100 |                  
+  RegisteredUser.js                   |     100 |      100 |     100 |     100 |                  
+  UserLogin.js                        |     100 |      100 |     100 |     100 |                  
+ Infrastructures/http                 |     100 |      100 |     100 |     100 |                  
+  createServer.js                     |     100 |      100 |     100 |     100 |                  
+ Infrastructures/repository           |     100 |      100 |     100 |     100 |                   
+  AuthenticationRepositoryPostgres.js |     100 |      100 |     100 |     100 |                  
+  UserRepositoryPostgres.js           |     100 |      100 |     100 |     100 |                  
+ Infrastructures/security             |     100 |      100 |     100 |     100 |                  
+  BcryptPasswordHash.js               |     100 |      100 |     100 |     100 |                  
+  JwtTokenManager.js                  |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/authentications  |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/users            |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+--------------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 22 passed, 22 total
+Tests:       72 passed, 72 total
+Snapshots:   0 total
+Time:        2.65 s
+Ran all test suites.
+
+======
+..\auth-api>npm run start:dev
+
+> auth-api@1.0.0 start:dev
+> nodemon src/app.js
+
+[nodemon] 3.1.10
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node src/app.js`
+[dotenv@17.2.3] injecting env (11) from .env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+[dotenv@17.2.3] injecting env (0) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+server start at http://localhost:5000
+
+======
+Testing Postman:
+v postman\Auth API Test\Auth API.postman_collection.json
+v postman\Auth API Test\Auth API.postman_environment.json
