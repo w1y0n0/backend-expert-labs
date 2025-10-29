@@ -1092,3 +1092,66 @@ Time:        3 s
 Ran all test suites.
 
 ======
+..\auth-api>node
+Welcome to Node.js v24.4.0.
+Type ".help" for more information.
+> require('crypto').randomBytes(64).toString('hex');
+'10fd0d6ac682fd9ae6ad4e584054b934140e1bf567873c511d38ac82c133cd831714cffd2c9549d972a0b0985a7c0733fc951c84685ac27b729bc2c4a6445599'
+> require('crypto').randomBytes(64).toString('hex');
+'d1778a0152c5a51defea21b96f3d29c22f36dbe56ee37b3c3cdba9a1a4856acc14e078efb191d4886b7d6f8d2db503526d1c6b613b0b584ccfb18a8bd375e34f'
+
+======
+..\auth-api>npm run test:watch
+
+> auth-api@1.0.0 test:watch
+> jest --watchAll --coverage --setupFiles dotenv/config
+
+--------------------------------------|---------|----------|---------|---------|-------------------
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------------|---------|----------|---------|---------|-------------------
+All files                             |     100 |      100 |     100 |     100 |                   
+ Applications/security                |     100 |      100 |     100 |     100 |                   
+  AuthenticationTokenManager.js       |     100 |      100 |     100 |     100 |                   
+  PasswordHash.js                     |     100 |      100 |     100 |     100 |                   
+ Applications/use_case                |     100 |      100 |     100 |     100 |                   
+  AddUserUseCase.js                   |     100 |      100 |     100 |     100 |                  
+  LoginUserUseCase.js                 |     100 |      100 |     100 |     100 |                  
+  LogoutUserUseCase.js                |     100 |      100 |     100 |     100 |                  
+  RefreshAuthenticationUseCase.js     |     100 |      100 |     100 |     100 |                  
+ Commons/exceptions                   |     100 |      100 |     100 |     100 |                  
+  AuthenticationError.js              |     100 |      100 |     100 |     100 |                  
+  ClientError.js                      |     100 |      100 |     100 |     100 |                  
+  DomainErrorTranslator.js            |     100 |      100 |     100 |     100 |                  
+  InvariantError.js                   |     100 |      100 |     100 |     100 |                  
+  NotFoundError.js                    |     100 |      100 |     100 |     100 |                  
+ Domains/authentications              |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepository.js         |     100 |      100 |     100 |     100 |                  
+ Domains/authentications/entities     |     100 |      100 |     100 |     100 |                  
+  NewAuth.js                          |     100 |      100 |     100 |     100 |                  
+ Domains/users                        |     100 |      100 |     100 |     100 |                  
+  UserRepository.js                   |     100 |      100 |     100 |     100 |                   
+ Domains/users/entities               |     100 |      100 |     100 |     100 |                  
+  RegisterUser.js                     |     100 |      100 |     100 |     100 |                  
+  RegisteredUser.js                   |     100 |      100 |     100 |     100 |                  
+  UserLogin.js                        |     100 |      100 |     100 |     100 |                  
+ Infrastructures/http                 |     100 |      100 |     100 |     100 |                  
+  createServer.js                     |     100 |      100 |     100 |     100 |                  
+ Infrastructures/repository           |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepositoryPostgres.js |     100 |      100 |     100 |     100 |                  
+  UserRepositoryPostgres.js           |     100 |      100 |     100 |     100 |                  
+ Infrastructures/security             |     100 |      100 |     100 |     100 |                  
+  BcryptPasswordHash.js               |     100 |      100 |     100 |     100 |                   
+  JwtTokenManager.js                  |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/users            |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+--------------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 22 passed, 22 total
+Tests:       56 passed, 56 total
+Snapshots:   0 total
+Time:        17.375 s, estimated 45 s
+Ran all test suites.
+
+======
