@@ -34,7 +34,7 @@ describe('UserRepositoryPostgres', () => {
   });
 
   describe('addUser function', () => {
-    it('should persist register user', async () => {
+    it('should persist register user and return registered user correctly', async () => {
       // Arrange
       const registerUser = new RegisterUser({
         username: 'dicoding',
@@ -71,6 +71,31 @@ describe('UserRepositoryPostgres', () => {
         username: 'dicoding',
         fullname: 'Dicoding Indonesia',
       }));
+    });
+  });
+
+  describe('getPasswordByUsername', () => {
+    it('should throw InvariantError when user not found', () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action & Assert
+      return expect(userRepositoryPostgres.getPasswordByUsername('dicoding'))
+        .rejects
+        .toThrowError(InvariantError);
+    });
+
+    it('should return username password when user is found', async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+      await UsersTableTestHelper.addUser({
+        username: 'dicoding',
+        password: 'secret_password',
+      });
+
+      // Action & Assert
+      const password = await userRepositoryPostgres.getPasswordByUsername('dicoding');
+      expect(password).toBe('secret_password');
     });
   });
 });

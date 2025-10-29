@@ -1,6 +1,6 @@
 const PasswordHash = require('../PasswordHash');
 
-describe('PasswordHash interface', () => {
+describe('EncryptionHelper interface', () => {
   it('should throw error when invoke abstract behavior', async () => {
     // Arrange
     const passwordHash = new PasswordHash();
