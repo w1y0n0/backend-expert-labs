@@ -1,0 +1,63 @@
+..\forum-api>nvm list      
+
+  * 24.4.0 (Currently using 64-bit executable)
+    20.15.1
+    18.19.0
+    18.13.0
+
+..\forum-api>nvm list available
+
+|   CURRENT    |     LTS      |  OLD STABLE  | OLD UNSTABLE |
+|--------------|--------------|--------------|--------------|
+|    25.1.0    |   24.11.0    |   0.12.18    |   0.11.16    |
+|    25.0.0    |   22.21.1    |   0.12.17    |   0.11.15    |
+|   24.10.0    |   22.21.0    |   0.12.16    |   0.11.14    |
+|    24.9.0    |   22.20.0    |   0.12.15    |   0.11.13    |
+|    24.8.0    |   22.19.0    |   0.12.14    |   0.11.12    |
+|    24.7.0    |   22.18.0    |   0.12.13    |   0.11.11    |
+|    24.6.0    |   22.17.1    |   0.12.12    |   0.11.10    |
+|    24.5.0    |   22.17.0    |   0.12.11    |    0.11.9    |
+|    24.4.1    |   22.16.0    |   0.12.10    |    0.11.8    |
+|    24.4.0    |   22.15.1    |    0.12.9    |    0.11.7    |
+|    24.3.0    |   22.15.0    |    0.12.8    |    0.11.6    |
+|    24.2.0    |   22.14.0    |    0.12.7    |    0.11.5    |
+|    24.1.0    |   22.13.1    |    0.12.6    |    0.11.4    |
+|    24.0.2    |   22.13.0    |    0.12.5    |    0.11.3    |
+|    24.0.1    |   22.12.0    |    0.12.4    |    0.11.2    |
+|    24.0.0    |   22.11.0    |    0.12.3    |    0.11.1    |
+|   23.11.1    |   20.19.5    |    0.12.2    |    0.11.0    |
+|   23.11.0    |   20.19.4    |    0.12.1    |    0.9.12    |
+|   23.10.0    |   20.19.3    |    0.12.0    |    0.9.11    |
+|    23.9.0    |   20.19.2    |   0.10.48    |    0.9.10    |
+
+This is a partial list. For a complete list, visit https://nodejs.org/en/download/releases
+
+..\forum-api>nvm install 22.21.1
+Downloading node.js version 22.21.1 (64-bit)...
+Extracting node and npm...
+Complete
+npm v10.9.4 installed successfully.
+
+
+Installation complete. If you want to use this version, type
+
+nvm use 22.21.1
+
+..\forum-api>nvm use 22.21.1
+Now using node v22.21.1 (64-bit)
+
+..\forum-api>nvm list           
+
+    24.4.0
+  * 22.21.1 (Currently using 64-bit executable)
+    20.15.1
+    18.19.0
+    18.13.0
+
+..\forum-api>npm -v
+10.9.4
+
+..\forum-api>node -v
+v22.21.1
+
+---
