@@ -61,3 +61,96 @@ Now using node v22.21.1 (64-bit)
 v22.21.1
 
 ---
+..\forum-api>npm install
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported    
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported        
+npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+npm warn deprecated are-we-there-yet@2.0.0: This package is no longer supported.
+npm warn deprecated domexception@2.0.1: Use your platform's native DOMException instead  
+npm warn deprecated w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+npm warn deprecated npmlog@5.0.1: This package is no longer supported.
+npm warn deprecated gauge@3.0.2: This package is no longer supported.
+
+added 471 packages, and audited 472 packages in 3m
+
+43 packages are looking for funding
+  run `npm fund` for details
+
+3 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+---
+..\forum-api>npm install eslint --save-dev
+
+added 55 packages, and audited 527 packages in 14s
+
+62 packages are looking for funding
+  run `npm fund` for details
+
+3 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+---
+..\forum-api>npx eslint --init
+You can also run this command directly using 'npm init @eslint/config@latest'.
+Need to install the following packages:
+@eslint/create-config@1.11.0
+Ok to proceed? (y) y
+
+
+> forum-api@1.0.0 npx
+> create-config
+
+@eslint/create-config: v1.11.0
+
+√ What do you want to lint? · javascript
+√ How would you like to use ESLint? · problems
+√ What type of modules does your project use? · commonjs
+√ Which framework does your project use? · none
+√ Does your project use TypeScript? · No / Yes
+√ Where does your code run? · node                                        
+i The config that you've selected requires the following dependencies:
+
+eslint, @eslint/js, globals
+√ Would you like to install them now? · No / Yes
+√ Which package manager do you want to use? · npm
+☕️Installing...
+
+added 1 package, changed 1 package, and audited 528 packages in 5s
+
+63 packages are looking for funding
+  run `npm fund` for details
+
+3 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+√ Successfully created D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\forum-api\eslint.config.mjs file.
+
+---
+..\forum-api>npm install eslint-config-dicodingacademy --save-dev
+
+added 1 package, and audited 529 packages in 3s
+
+63 packages are looking for funding
+  run `npm fund` for details
+
+3 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+
+---
