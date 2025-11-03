@@ -395,3 +395,16 @@ Time:        7.343 s, estimated 17 s
 Ran all test suites.
 
 ---
+..\forum-api>npm run start:dev
+
+> forum-api@1.0.0 start:dev
+> nodemon src/app.js
+
+[nodemon] 2.0.22
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node src/app.js`
+server start at http://localhost:5000
+
+---
