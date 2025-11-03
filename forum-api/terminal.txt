@@ -154,3 +154,244 @@ To address all issues, run:
 Run `npm audit` for details.
 
 ---
+Menyiapkan Kebutuhan Database
+---
+..\forum-api>psql --username postgres
+Password for user postgres:
+
+psql (13.21)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# CREATE DATABASE forumapi; CREATE DATABASE forumapi_test;
+CREATE DATABASE
+CREATE DATABASE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE forumapi, forumapi_test TO developer;
+GRANT
+postgres=# exit
+
+---
+..\forum-api>npm run migrate up
+
+> forum-api@1.0.0 migrate
+> node-pg-migrate up
+
+> Migrating files:
+> - 1627983516963_create-table-users
+> - 1627983555473_create-table-authentications
+### MIGRATION 1627983516963_create-table-users (UP) ###
+CREATE TABLE "users" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "username" VARCHAR(50) UNIQUE NOT NULL,
+  "password" TEXT NOT NULL,
+  "fullname" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983516963_create-table-users', NOW());    
+
+
+### MIGRATION 1627983555473_create-table-authentications (UP) ###
+CREATE TABLE "authentications" (
+  "token" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983555473_create-table-authentications', NOW());
+
+
+Migrations complete!
+
+---
+..\forum-api>npm run migrate:test up
+
+> forum-api@1.0.0 migrate:test
+> node-pg-migrate -f config/database/test.json up
+
+> Migrating files:
+> - 1627983516963_create-table-users
+> - 1627983555473_create-table-authentications
+### MIGRATION 1627983516963_create-table-users (UP) ###
+CREATE TABLE "users" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "username" VARCHAR(50) UNIQUE NOT NULL,
+  "password" TEXT NOT NULL,
+  "fullname" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983516963_create-table-users', NOW());    
+
+
+### MIGRATION 1627983555473_create-table-authentications (UP) ###
+CREATE TABLE "authentications" (
+  "token" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983555473_create-table-authentications', NOW());
+
+
+Migrations complete!
+
+---
+Cek Database: forumapi & forumapi_test
+---
+..\forum-api>psql --username developer --dbname forumapi
+Password for user developer: 
+
+psql (13.21)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+forumapi=> \dt
+              List of relations
+ Schema |      Name       | Type  |   Owner   
+--------+-----------------+-------+-----------
+ public | authentications | table | developer
+ public | pgmigrations    | table | developer
+ public | users           | table | developer
+(3 rows)
+
+forumapi=> exit
+
+..\forum-api>psql --username developer --dbname forumapi_test
+Password for user developer: 
+
+psql (13.21)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+forumapi_test=> \dt
+              List of relations
+ Schema |      Name       | Type  |   Owner
+--------+-----------------+-------+-----------
+ public | authentications | table | developer
+ public | pgmigrations    | table | developer
+ public | users           | table | developer
+(3 rows)
+
+---
+Automation Testing
+---
+..\forum-api>npm run test
+
+> forum-api@1.0.0 test
+> jest --setupFiles dotenv/config -i
+
+ PASS  src/Infrastructures/http/_test/authentications.test.js (13.82 s)
+ PASS  src/Infrastructures/http/_test/users.test.js
+ PASS  src/Infrastructures/repository/_test/UserRepositoryPostgres.test.js
+ PASS  src/Applications/use_case/_test/LoginUserUseCase.test.js
+ PASS  src/Applications/use_case/_test/RefreshAuthenticationUseCase.test.js
+ PASS  src/Infrastructures/security/_test/JwtTokenManager.test.js
+ PASS  src/Infrastructures/repository/_test/AuthenticationRepositoryPostgres.test.js
+ PASS  src/Applications/use_case/_test/AddUserUseCase.test.js
+ PASS  src/Applications/use_case/_test/DeleteAuthenticationUseCase.test.js
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js
+ PASS  src/Applications/use_case/_test/LogoutUserUseCase.test.js
+ PASS  src/Infrastructures/security/_test/BcryptPasswordHash.test.js
+ PASS  src/Commons/exceptions/_test/DomainErrorTranslator.test.js
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Domains/authentications/entities/_test/NewAuth.test.js
+ PASS  src/Domains/users/entities/_test/UserLogin.test.js
+ PASS  src/Infrastructures/http/_test/createServer.test.js
+ PASS  src/Applications/security/_test/AuthenticationTokenManager.test.js
+ PASS  src/Domains/users/_test/UserRepository.test.js
+ PASS  src/Domains/authentications/_test/AuthenticationRepository.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Commons/exceptions/_test/AuthorizationError.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Applications/security/_test/PasswordHash.test.js
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+                                                                                                                   
+Test Suites: 26 passed, 26 total                                                                                   
+Tests:       78 passed, 78 total
+Snapshots:   0 total
+Time:        18.44 s
+Ran all test suites.
+
+..\forum-api>npm run test:watch
+
+> forum-api@1.0.0 test:watch
+> jest --watchAll --coverage --setupFiles dotenv/config -i
+ PASS  src/Infrastructures/http/_test/authentications.test.js
+ PASS  src/Infrastructures/http/_test/users.test.js
+ PASS  src/Infrastructures/security/_test/BcryptPasswordHash.test.js
+ PASS  src/Infrastructures/http/_test/createServer.test.js
+ PASS  src/Infrastructures/repository/_test/UserRepositoryPostgres.test.js
+ PASS  src/Infrastructures/repository/_test/AuthenticationRepositoryPostgres.test.js
+ PASS  src/Infrastructures/security/_test/JwtTokenManager.test.js
+ PASS  src/Applications/use_case/_test/DeleteAuthenticationUseCase.test.js
+ PASS  src/Applications/use_case/_test/RefreshAuthenticationUseCase.test.js
+ PASS  src/Applications/use_case/_test/LoginUserUseCase.test.js
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js
+ PASS  src/Domains/authentications/entities/_test/NewAuth.test.js
+ PASS  src/Domains/users/entities/_test/UserLogin.test.js
+ PASS  src/Applications/use_case/_test/LogoutUserUseCase.test.js
+ PASS  src/Commons/exceptions/_test/AuthorizationError.test.js
+ PASS  src/Applications/security/_test/AuthenticationTokenManager.test.js
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Domains/authentications/_test/AuthenticationRepository.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+ PASS  src/Applications/security/_test/PasswordHash.test.js
+ PASS  src/Applications/use_case/_test/AddUserUseCase.test.js
+ PASS  src/Domains/users/_test/UserRepository.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Commons/exceptions/_test/DomainErrorTranslator.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+--------------------------------------|---------|----------|---------|---------|-------------------
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+--------------------------------------|---------|----------|---------|---------|-------------------
+All files                             |     100 |      100 |     100 |     100 |                   
+ Applications/security                |     100 |      100 |     100 |     100 |                   
+  AuthenticationTokenManager.js       |     100 |      100 |     100 |     100 |                   
+  PasswordHash.js                     |     100 |      100 |     100 |     100 |                   
+ Applications/use_case                |     100 |      100 |     100 |     100 |                   
+  AddUserUseCase.js                   |     100 |      100 |     100 |     100 |                   
+  DeleteAuthenticationUseCase.js      |     100 |      100 |     100 |     100 |                   
+  LoginUserUseCase.js                 |     100 |      100 |     100 |     100 |                   
+  LogoutUserUseCase.js                |     100 |      100 |     100 |     100 |                   
+  RefreshAuthenticationUseCase.js     |     100 |      100 |     100 |     100 |                   
+ Commons/exceptions                   |     100 |      100 |     100 |     100 |                   
+  AuthenticationError.js              |     100 |      100 |     100 |     100 |                   
+  AuthorizationError.js               |     100 |      100 |     100 |     100 |                   
+  ClientError.js                      |     100 |      100 |     100 |     100 |                  
+  DomainErrorTranslator.js            |     100 |      100 |     100 |     100 |                  
+  InvariantError.js                   |     100 |      100 |     100 |     100 |                  
+  NotFoundError.js                    |     100 |      100 |     100 |     100 |                  
+ Domains/authentications              |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepository.js         |     100 |      100 |     100 |     100 |                  
+ Domains/authentications/entities     |     100 |      100 |     100 |     100 |                  
+  NewAuth.js                          |     100 |      100 |     100 |     100 |                  
+ Domains/users                        |     100 |      100 |     100 |     100 |                  
+  UserRepository.js                   |     100 |      100 |     100 |     100 |                  
+ Domains/users/entities               |     100 |      100 |     100 |     100 |                  
+  RegisterUser.js                     |     100 |      100 |     100 |     100 |                  
+  RegisteredUser.js                   |     100 |      100 |     100 |     100 |                  
+  UserLogin.js                        |     100 |      100 |     100 |     100 |                  
+ Infrastructures/http                 |     100 |      100 |     100 |     100 |                  
+  createServer.js                     |     100 |      100 |     100 |     100 |                  
+ Infrastructures/repository           |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepositoryPostgres.js |     100 |      100 |     100 |     100 |                  
+  UserRepositoryPostgres.js           |     100 |      100 |     100 |     100 |                  
+ Infrastructures/security             |     100 |      100 |     100 |     100 |                  
+  BcryptPasswordHash.js               |     100 |      100 |     100 |     100 |                  
+  JwtTokenManager.js                  |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/authentications  |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/users            |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+--------------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 26 passed, 26 total
+Tests:       78 passed, 78 total
+Snapshots:   0 total
+Time:        7.343 s, estimated 17 s
+Ran all test suites.
+
+---
