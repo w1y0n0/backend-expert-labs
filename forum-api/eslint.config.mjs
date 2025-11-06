@@ -16,8 +16,8 @@ export default defineConfig([
       globals: globals.node,
     },
     rules: {
-      // Abaikan parameter yang diawali underscore (_) dari error no-unused-vars
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-unused-disable': 'off',
     },
   },
 

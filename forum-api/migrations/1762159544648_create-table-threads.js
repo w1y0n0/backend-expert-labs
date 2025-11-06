@@ -1,21 +1,26 @@
 // /* eslint-disable camelcase */
 
 exports.up = (pgm) => {
-  pgm.createTable('users', {
+  pgm.createTable('threads', {
     id: {
       type: 'VARCHAR(50)',
       primaryKey: true,
     },
-    username: {
-      type: 'VARCHAR(50)',
-      notNull: true,
-      unique: true,
-    },
-    password: {
+    title: {
       type: 'TEXT',
       notNull: true,
     },
-    fullname: {
+    body: {
+      type: 'TEXT',
+      notNull: true,
+    },
+    owner: {
+      type: 'VARCHAR(50)',
+      notNull: true,
+      references: '"users"(id)',
+      onDelete: 'CASCADE',
+    },
+    date: {
       type: 'TEXT',
       notNull: true,
     },
@@ -23,5 +28,5 @@ exports.up = (pgm) => {
 };
 
 exports.down = (pgm) => {
-  pgm.dropTable('users');
+  pgm.dropTable('threads');
 };
