@@ -93,7 +93,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
 
       // Action & Assert
-      await expect(commentRepositoryPostgres.checkCommentExist({ commentId: 'comment-123' }))
+      await expect(commentRepositoryPostgres.checkCommentExist('comment-123'))
         .rejects
         .toThrowError('comment tidak tersedia');
     });

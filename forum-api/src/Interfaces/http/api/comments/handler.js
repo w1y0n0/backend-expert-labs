@@ -24,7 +24,11 @@ class CommentHandler {
     return h.response({
       status: 'success',
       data: {
-        addedComment,
+        addedComment: {
+          id: addedComment.id,
+          content: addedComment.content,
+          owner: addedComment.owner,
+        },
       },
     }).code(201);
   }

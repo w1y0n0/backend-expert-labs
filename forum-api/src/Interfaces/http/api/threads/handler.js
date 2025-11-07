@@ -19,7 +19,11 @@ class ThreadHandler {
     return h.response({
       status: 'success',
       data: {
-        addedThread,
+        addedThread: {
+          id: addedThread.id,
+          title: addedThread.title,
+          owner: addedThread.owner,
+        },
       },
     }).code(201);
   }
