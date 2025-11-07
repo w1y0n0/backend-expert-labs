@@ -587,3 +587,28 @@ Time:        5.175 s
 Ran all test suites.
 
 ---
+..\forum-api>npm run start:dev
+
+> forum-api@1.0.0 start:dev
+> nodemon src/app.js
+
+[nodemon] 2.0.22
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node src/app.js`
+server start at http://localhost:5000
+
+---
+Postman Testing
+---
+Forum API V1 Test:
+✅Users => Passed(20) Failed(0) Skipped(0)
+✅Authentications => Passed(16) Failed(0) Skipped(0)
+✅Threads => Passed(14) Failed(0) Skipped(0)
+✅Comments => Passed(24) Failed(0) Skipped(0)
+
+---
+forumapi=> truncate users, authentications, threads, comments;
+
+---
