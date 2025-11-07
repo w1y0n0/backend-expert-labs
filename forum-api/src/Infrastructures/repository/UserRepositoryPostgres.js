@@ -82,6 +82,14 @@ class UserRepositoryPostgres extends UserRepository {
 
     return result.rows[0];
   }
+
+  async getUsers() {
+    const query = { text: 'SELECT * FROM users' };
+
+    const result = await this._pool.query(query);
+
+    return result.rows;
+  }
 }
 
 module.exports = UserRepositoryPostgres;

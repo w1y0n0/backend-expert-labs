@@ -151,4 +151,36 @@ describe('UserRepositoryPostgres', () => {
       expect(user).toStrictEqual(expectedUser);
     });
   });
+
+  describe('getUsers function', () => {
+    it('should return empty array on users does not exist', async () => {
+      // Arrange
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action
+      const users = await userRepositoryPostgres.getUsers();
+
+      // Assert
+      expect(users).toStrictEqual([]);
+    });
+
+    it('should return array users on user exist', async () => {
+      // Arrange
+      const expectedUser = {
+        id: 'user-123',
+        username: 'dicoding',
+        password: 'secret',
+        fullname: 'Dicoding Indonesia'
+      };
+
+      await UsersTableTestHelper.addUser(expectedUser);
+      const userRepositoryPostgres = new UserRepositoryPostgres(pool, {});
+
+      // Action
+      const users = await userRepositoryPostgres.getUsers();
+
+      // Assert
+      expect(users).toStrictEqual([expectedUser]);
+    });
+  });
 });
