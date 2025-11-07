@@ -1,7 +1,7 @@
-const CommentRepository = require("../../../Domains/comments/CommentRepository");
-const Comment = require("../../../Domains/comments/entities/Comment");
-const ThreadRepository = require("../../../Domains/threads/ThreadRepository");
-const AddCommentUseCase = require("../AddCommentUseCase");
+const CommentRepository = require('../../../Domains/comments/CommentRepository');
+const Comment = require('../../../Domains/comments/entities/Comment');
+const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
+const AddCommentUseCase = require('../AddCommentUseCase');
 
 describe('AddCommentUseCase', () => {
   /**
@@ -37,7 +37,7 @@ describe('AddCommentUseCase', () => {
     const addCommentUseCase = new AddCommentUseCase({
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
-    })
+    });
 
     // Action
     const comment = await addCommentUseCase.execute(useCasePayload);

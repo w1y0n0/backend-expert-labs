@@ -1,6 +1,6 @@
 const InvariantError = require('../../Commons/exceptions/InvariantError');
 const Thread = require('../../Domains/threads/entities/Thread');
-const ThreadRepository = require("../../Domains/threads/ThreadRepository");
+const ThreadRepository = require('../../Domains/threads/ThreadRepository');
 const { nanoid } = require('nanoid');
 
 class ThreadRepositoryPostgres extends ThreadRepository {

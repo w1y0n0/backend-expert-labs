@@ -79,7 +79,7 @@ describe('ThreadRepositoryPostgres', () => {
       // Action & Assert
       await expect(threadRepositoryPostgres.checkThreadExist({ threadId: 'thread-123' }))
         .rejects
-        .toThrowError('thread tidak tersedia')
+        .toThrowError('thread tidak tersedia');
     });
 
     it('should not throw error when thread exist', async () => {
