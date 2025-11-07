@@ -1,5 +1,6 @@
 const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
 const NotFoundError = require('../../Commons/exceptions/NotFoundError');
+const { mapCommentDbToModel } = require('../../Commons/utils/mapper');
 const CommentRepository = require('../../Domains/comments/CommentRepository');
 const Comment = require('../../Domains/comments/entities/Comment');
 const { nanoid } = require('nanoid');
@@ -81,6 +82,17 @@ class CommentRepositoryPostgress extends CommentRepository {
     if (!result.rowCount) {
       throw new NotFoundError('comment tidak tersedia');
     }
+  }
+
+  async getCommentsByThreadId(threadId) {
+    const query = {
+      text: 'SELECT * FROM comments WHERE thread_id = $1',
+      values: [threadId],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows.map(mapCommentDbToModel);
   }
 }
 

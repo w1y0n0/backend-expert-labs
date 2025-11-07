@@ -148,4 +148,54 @@ describe('CommentRepositoryPostgres', () => {
         .toThrowError('comment tidak tersedia');
     });
   });
+
+  describe('getCommentsByThreadId function', () => {
+    it('should return empty array on comment does not exist', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+      await ThreadsTableTestHelper.addThread({
+        id: 'thread-123', title: 'A title', body: 'A body', owner: 'user-123'
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+
+      // Action
+      const comments = await commentRepositoryPostgres.getCommentsByThreadId('thread-123');
+
+      // Assert
+      expect(comments).toStrictEqual([]);
+    });
+
+    it('should return array comments on comment exist', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+      await ThreadsTableTestHelper.addThread({
+        id: 'thread-123', title: 'A title', body: 'A body', owner: 'user-123'
+      });
+
+      const expectedComment = {
+        id: 'comment-123',
+        content: 'A comment',
+        owner: 'user-123',
+        threadId: 'thread-123',
+        date: '2025-09-07T10:00:00.000Z',
+        isDelete: false,
+      };
+      await CommentsTableTestHelper.addComment(expectedComment);
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+
+      // Action
+      const comments = await commentRepositoryPostgres.getCommentsByThreadId('thread-123');
+
+      // Assert
+      expect(comments).toStrictEqual([expectedComment]);
+    });
+  });
 });

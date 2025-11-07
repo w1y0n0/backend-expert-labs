@@ -79,7 +79,7 @@ describe('ThreadRepositoryPostgres', () => {
       // Action & Assert
       await expect(threadRepositoryPostgres.checkThreadExist('thread-123'))
         .rejects
-        .toThrowError('thread tidak tersedia');
+        .toThrowError('thread tidak ditemukan');
     });
 
     it('should not throw error when thread exist', async () => {
@@ -99,6 +99,48 @@ describe('ThreadRepositoryPostgres', () => {
       // Action & Assert
       await expect(threadRepositoryPostgres.checkThreadExist('thread-123'))
         .resolves.not.toThrow();
+    });
+  });
+
+  describe('getThreadById function', () => {
+    it('should throw error when thread does not exist', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action & Assert
+      await expect(threadRepositoryPostgres.getThreadById('thread-123'))
+        .rejects
+        .toThrowError('thread tidak ditemukan');
+    });
+
+    it('should return thread when thread exist', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+
+      const expectedThread = {
+        id: 'thread-123',
+        title: 'A title',
+        body: 'A body',
+        owner: 'user-123',
+        date: '2025-09-07T10:00:00.000Z',
+      };
+      await ThreadsTableTestHelper.addThread(expectedThread);
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action
+      const thread = await threadRepositoryPostgres.getThreadById('thread-123');
+
+      // Assert
+      expect(thread).toStrictEqual(expectedThread);
     });
   });
 });
