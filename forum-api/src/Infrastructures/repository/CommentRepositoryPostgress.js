@@ -43,19 +43,6 @@ class CommentRepositoryPostgress extends CommentRepository {
     });
   }
 
-  async checkThreadExist({ threadId }) {
-    const query = {
-      text: 'SELECT id FROM threads WHERE id = $1',
-      values: [threadId],
-    };
-
-    const result = await this._pool.query(query);
-
-    if (!result.rowCount) {
-      throw new InvariantError('thread tidak tersedia');
-    }
-  }
-
   async deleteComment({ commentId, owner }) {
     const query = {
       text: 'DELETE FROM comments WHERE id = $1 AND owner = $2',

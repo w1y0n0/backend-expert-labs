@@ -65,4 +65,40 @@ describe('ThreadRepositoryPostgres', () => {
       }));
     });
   });
+
+  describe('checkThreadExist function', () => {
+    it('should throw error when no thread', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Action & Assert
+      await expect(threadRepositoryPostgres.checkThreadExist({ threadId: 'thread-123' }))
+        .rejects
+        .toThrowError('thread tidak tersedia')
+    });
+
+    it('should not throw error when thread exist', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
+      await threadRepositoryPostgres.addThread({
+        title: 'A thread',
+        body: 'A body',
+        owner: 'user-123',
+      });
+
+      // Action & Assert
+      await expect(threadRepositoryPostgres.checkThreadExist({ threadId: 'thread-123' }))
+        .resolves.not.toThrow();
+    });
+  });
 });

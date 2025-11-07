@@ -479,3 +479,11 @@ Time:        8.911 s, estimated 12 s
 Ran all test suites.
 
 ---
+..\forum-api>npm run test:watch
+Test Suites: 35 passed, 35 total
+Tests:       101 passed, 101 total
+Snapshots:   0 total
+Time:        10.663 s, estimated 11 s
+Ran all test suites.
+
+---

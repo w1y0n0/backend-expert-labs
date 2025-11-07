@@ -1,5 +1,6 @@
+const InvariantError = require('../../Commons/exceptions/InvariantError');
 const Thread = require('../../Domains/threads/entities/Thread');
-const ThreadRepository = require('../../Domains/threads/ThreadRepository');
+const ThreadRepository = require("../../Domains/threads/ThreadRepository");
 const { nanoid } = require('nanoid');
 
 class ThreadRepositoryPostgres extends ThreadRepository {
@@ -15,14 +16,18 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     const date = this._date.toISOString();
 
     const thread = new Thread({
-      id, title, body, owner, date,
+      id,
+      title,
+      body,
+      owner,
+      date,
     });
 
     const query = {
       text: `
-        INSERT INTO threads (id, title, body, owner, date)
+        INSERT INTO threads (id, title, body, owner, date) 
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING id, title, body, owner, date
+        RETURNING  id, title, body, owner, date
       `,
       values: [thread.id, thread.title, thread.body, thread.owner, thread.date],
     };
@@ -30,6 +35,19 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     const result = await this._pool.query(query);
 
     return new Thread(result.rows[0]);
+  }
+
+  async checkThreadExist({ threadId }) {
+    const query = {
+      text: 'SELECT id FROM threads WHERE id = $1',
+      values: [threadId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new InvariantError('thread tidak tersedia');
+    }
   }
 }
 
