@@ -37,7 +37,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     return new Thread(result.rows[0]);
   }
 
-  async checkThreadExist({ threadId }) {
+  async checkThreadExist(threadId) {
     const query = {
       text: 'SELECT id FROM threads WHERE id = $1',
       values: [threadId],

@@ -11,15 +11,15 @@ describe('AddCommentUseCase', () => {
     // Arrange
     const useCasePayload = {
       content: 'A comment',
-      owner: 'user-123',
+      userId: 'user-123',
       threadId: 'thread-123',
     };
 
-    const mockComment = new Comment({
+    const expectedComment = new Comment({
       id: 'comment-123',
       content: useCasePayload.content,
-      owner: 'user-123',
-      threadId: 'thread-123',
+      owner: useCasePayload.userId,
+      threadId: useCasePayload.threadId,
       date: '2025-09-07T10:00:00.000Z',
     });
 
@@ -29,9 +29,9 @@ describe('AddCommentUseCase', () => {
 
     /** mocking needed function */
     mockThreadRepository.checkThreadExist = jest.fn()
-      .mockImplementation(() => Promise.resolve('thread-123'));
+      .mockResolvedValue();
     mockCommentRepository.addComment = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockComment));
+      .mockResolvedValue(expectedComment);
 
     /** creating use case instance */
     const addCommentUseCase = new AddCommentUseCase({
@@ -43,24 +43,16 @@ describe('AddCommentUseCase', () => {
     const comment = await addCommentUseCase.execute(useCasePayload);
 
     // Assert
-    expect(comment).toStrictEqual(new Comment({
-      id: 'comment-123',
-      content: useCasePayload.content,
-      owner: 'user-123',
-      threadId: 'thread-123',
-      date: '2025-09-07T10:00:00.000Z',
-    }));
+    expect(comment).toStrictEqual(expectedComment);
 
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith({
-      content: useCasePayload.content,
-      owner: useCasePayload.owner,
-      threadId: useCasePayload.threadId,
-    });
+    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
+    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
 
     expect(mockCommentRepository.addComment).toBeCalledWith({
       content: useCasePayload.content,
-      owner: useCasePayload.owner,
+      userId: useCasePayload.userId,
       threadId: useCasePayload.threadId,
     });
+    expect(mockCommentRepository.addComment).toBeCalledTimes(1);
   });
 });

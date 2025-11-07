@@ -77,7 +77,7 @@ describe('ThreadRepositoryPostgres', () => {
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action & Assert
-      await expect(threadRepositoryPostgres.checkThreadExist({ threadId: 'thread-123' }))
+      await expect(threadRepositoryPostgres.checkThreadExist('thread-123'))
         .rejects
         .toThrowError('thread tidak tersedia');
     });
@@ -97,7 +97,7 @@ describe('ThreadRepositoryPostgres', () => {
       });
 
       // Action & Assert
-      await expect(threadRepositoryPostgres.checkThreadExist({ threadId: 'thread-123' }))
+      await expect(threadRepositoryPostgres.checkThreadExist('thread-123'))
         .resolves.not.toThrow();
     });
   });

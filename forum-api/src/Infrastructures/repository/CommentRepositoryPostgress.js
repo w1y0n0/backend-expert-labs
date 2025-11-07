@@ -12,14 +12,14 @@ class CommentRepositoryPostgress extends CommentRepository {
     this._date = date;
   }
 
-  async addComment({ content, owner, threadId }) {
+  async addComment({ content, userId, threadId }) {
     const id = `comment-${this._idGenerator()}`;
     const date = this._date.toISOString();
 
     const comment = new Comment({
       id,
       content,
-      owner,
+      owner: userId,
       threadId,
       date,
     });
@@ -44,7 +44,7 @@ class CommentRepositoryPostgress extends CommentRepository {
     });
   }
 
-  async checkCommentExist({ commentId }) {
+  async checkCommentExist(commentId) {
     const query = {
       text: 'SELECT id FROM comments WHERE id = $1 AND is_delete = false',
       values: [commentId],
@@ -57,10 +57,10 @@ class CommentRepositoryPostgress extends CommentRepository {
     }
   }
 
-  async checkCommentOwnership({ commentId, owner }) {
+  async checkCommentOwnership(commentId, userId) {
     const query = {
       text: 'SELECT id FROM comments WHERE id = $1 AND owner = $2 AND is_delete = false',
-      values: [commentId, owner],
+      values: [commentId, userId],
     };
 
     const result = await this._pool.query(query);
@@ -70,10 +70,10 @@ class CommentRepositoryPostgress extends CommentRepository {
     }
   }
 
-  async deleteComment({ commentId, owner }) {
+  async deleteComment(commentId, userId) {
     const query = {
       text: 'UPDATE comments SET is_delete = true WHERE id = $1 AND owner = $2',
-      values: [commentId, owner],
+      values: [commentId, userId],
     };
 
     const result = await this._pool.query(query);

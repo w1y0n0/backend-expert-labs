@@ -28,7 +28,7 @@ describe('CommentRepositoryPostgres', () => {
 
       const payload = {
         content: 'A content',
-        owner: 'user-123',
+        userId: 'user-123',
         threadId: 'thread-123'
       };
 
@@ -54,7 +54,7 @@ describe('CommentRepositoryPostgres', () => {
 
       const payload = {
         content: 'A content',
-        owner: 'user-123',
+        userId: 'user-123',
         threadId: 'thread-123'
       };
 
@@ -118,12 +118,12 @@ describe('CommentRepositoryPostgres', () => {
       // Action
       await commentRepositoryPostgres.addComment({
         content: 'A content',
-        owner: 'user-123',
+        userId: 'user-123',
         threadId: 'thread-123'
       });
 
       // Assert
-      await expect(commentRepositoryPostgres.checkCommentOwnership({ commentId: 'comment-123', owner: 'user-456' }))
+      await expect(commentRepositoryPostgres.checkCommentOwnership('comment-123', 'user-456'))
         .rejects
         .toThrowError('comment bukan milik Anda');
     });
@@ -143,7 +143,7 @@ describe('CommentRepositoryPostgres', () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
 
       // Action & Assert
-      await expect(commentRepositoryPostgres.deleteComment({ commentId: 'comment-123', owner: 'user-123' }))
+      await expect(commentRepositoryPostgres.deleteComment('comment-123', 'user-123'))
         .rejects
         .toThrowError('comment tidak tersedia');
     });

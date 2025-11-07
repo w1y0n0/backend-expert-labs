@@ -5,10 +5,11 @@ class DeleteCommentUseCase {
   }
 
   async execute(useCasePayload) {
-    await this._threadRepository.checkThreadExist(useCasePayload);
-    await this._commentRepository.checkCommentExist(useCasePayload);
-    await this._commentRepository.checkCommentOwnership(useCasePayload);
-    await this._commentRepository.deleteComment(useCasePayload);
+    const { userId, threadId, commentId } = useCasePayload;
+    await this._threadRepository.checkThreadExist(threadId);
+    await this._commentRepository.checkCommentExist(commentId);
+    await this._commentRepository.checkCommentOwnership(commentId, userId);
+    await this._commentRepository.deleteComment(commentId, userId);
   }
 }
 

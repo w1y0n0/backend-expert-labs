@@ -547,3 +547,11 @@ INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762482352718_add-co
 Migrations complete!
 
 ---
+..\forum-api>npm run test:watch
+Test Suites: 35 passed, 35 total
+Tests:       107 passed, 107 total
+Snapshots:   0 total
+Time:        9.305 s
+Ran all test suites.
+
+---
