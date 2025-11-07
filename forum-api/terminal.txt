@@ -511,3 +511,39 @@ Time:        4.702 s, estimated 5 s
 Ran all test suites.
 
 ---
+..\forum-api>npm run migrate create "add column is_delete to table comments"
+
+> forum-api@1.0.0 migrate
+> node-pg-migrate create add column is_delete to table comments
+
+Created migration -- D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\forum-api/migrations/1762482352718_add-column-is-delete-to-table-comments.js
+
+..\forum-api>npm run migrate up     
+
+> forum-api@1.0.0 migrate
+> node-pg-migrate up
+
+> Migrating files:
+> - 1762482352718_add-column-is-delete-to-table-comments
+### MIGRATION 1762482352718_add-column-is-delete-to-table-comments (UP) ###
+ALTER TABLE "comments"
+  ADD "is_delete" BOOLEAN DEFAULT false NOT NULL;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762482352718_add-column-is-delete-to-table-comments', NOW());
+
+Migrations complete!
+
+..\forum-api>npm run migrate:test up   
+
+> forum-api@1.0.0 migrate:test
+> node-pg-migrate -f config/database/test.json up
+
+> Migrating files:
+> - 1762482352718_add-column-is-delete-to-table-comments
+### MIGRATION 1762482352718_add-column-is-delete-to-table-comments (UP) ###
+ALTER TABLE "comments"
+  ADD "is_delete" BOOLEAN DEFAULT false NOT NULL;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762482352718_add-column-is-delete-to-table-comments', NOW());
+
+Migrations complete!
+
+---

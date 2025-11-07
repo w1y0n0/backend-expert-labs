@@ -46,7 +46,7 @@ class CommentRepositoryPostgress extends CommentRepository {
 
   async checkCommentExist({ commentId }) {
     const query = {
-      text: 'SELECT id FROM comments WHERE id = $1',
+      text: 'SELECT id FROM comments WHERE id = $1 AND is_delete = false',
       values: [commentId],
     };
 
@@ -59,7 +59,7 @@ class CommentRepositoryPostgress extends CommentRepository {
 
   async checkCommentOwnership({ commentId, owner }) {
     const query = {
-      text: 'SELECT id FROM comments WHERE id = $1 AND owner = $2',
+      text: 'SELECT id FROM comments WHERE id = $1 AND owner = $2 AND is_delete = false',
       values: [commentId, owner],
     };
 
@@ -72,7 +72,7 @@ class CommentRepositoryPostgress extends CommentRepository {
 
   async deleteComment({ commentId, owner }) {
     const query = {
-      text: 'DELETE FROM comments WHERE id = $1 AND owner = $2',
+      text: 'UPDATE comments SET is_delete = true WHERE id = $1 AND owner = $2',
       values: [commentId, owner],
     };
 
