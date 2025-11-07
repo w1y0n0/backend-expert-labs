@@ -37,7 +37,7 @@ class CommentHandler {
 
     return h.response({
       status: 'success',
-    }).code(201);
+    }).code(200);
   }
 }
 

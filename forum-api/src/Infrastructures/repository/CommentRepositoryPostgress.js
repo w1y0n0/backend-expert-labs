@@ -1,4 +1,5 @@
-const InvariantError = require('../../Commons/exceptions/InvariantError');
+const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
+const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 const CommentRepository = require('../../Domains/comments/CommentRepository');
 const Comment = require('../../Domains/comments/entities/Comment');
 const { nanoid } = require('nanoid');
@@ -52,7 +53,7 @@ class CommentRepositoryPostgress extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new InvariantError('comment tidak tersedia');
+      throw new NotFoundError('comment tidak tersedia');
     }
   }
 
@@ -65,7 +66,7 @@ class CommentRepositoryPostgress extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new InvariantError('comment bukan milik Anda');
+      throw new AuthorizationError('comment bukan milik Anda');
     }
   }
 
@@ -78,7 +79,7 @@ class CommentRepositoryPostgress extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new InvariantError('comment tidak tersedia');
+      throw new NotFoundError('comment tidak tersedia');
     }
   }
 }
