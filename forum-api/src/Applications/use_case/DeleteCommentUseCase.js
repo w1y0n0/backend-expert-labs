@@ -1,13 +1,12 @@
-class AddCommentUseCase {
+class DeleteCommentUseCase {
   constructor({ commentRepository }) {
     this._commentRepository = commentRepository;
   }
 
   async execute(useCasePayload) {
     await this._commentRepository.checkThreadExist(useCasePayload);
-    const addedComment = await this._commentRepository.addComment(useCasePayload);
-    return addedComment;
+    await this._commentRepository.deleteComment(useCasePayload);
   }
 }
 
-module.exports = AddCommentUseCase;
+module.exports = DeleteCommentUseCase;
