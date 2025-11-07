@@ -76,6 +76,29 @@ describe('CommentRepositoryPostgres', () => {
     });
   });
 
+  describe('checkCommentExist function', () => {
+    it('should throw error on comment does not exist', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({
+        id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+      });
+      await UsersTableTestHelper.addUser({
+        id: 'user-456', username: 'dicoding2', password: 'secret', fullname: 'Dicoding Indonesia 2',
+      });
+      await ThreadsTableTestHelper.addThread({
+        id: 'thread-123', title: 'A title', body: 'A body', owner: 'user-123'
+      });
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+
+      // Action & Assert
+      await expect(commentRepositoryPostgres.checkCommentExist({ commentId: 'comment-123' }))
+        .rejects
+        .toThrowError('comment tidak tersedia');
+    });
+  });
+
   describe('checkCommentOwnership function', () => {
     it('should throw error when a non-owner tries to access the comment', async () => {
       // Arrange
