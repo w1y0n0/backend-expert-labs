@@ -190,13 +190,11 @@ CREATE TABLE "users" (
 );
 INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983516963_create-table-users', NOW());    
 
-
 ### MIGRATION 1627983555473_create-table-authentications (UP) ###
 CREATE TABLE "authentications" (
   "token" TEXT NOT NULL
 );
 INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983555473_create-table-authentications', NOW());
-
 
 Migrations complete!
 
@@ -218,13 +216,11 @@ CREATE TABLE "users" (
 );
 INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983516963_create-table-users', NOW());    
 
-
 ### MIGRATION 1627983555473_create-table-authentications (UP) ###
 CREATE TABLE "authentications" (
   "token" TEXT NOT NULL
 );
 INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983555473_create-table-authentications', NOW());
-
 
 Migrations complete!
 
@@ -350,6 +346,8 @@ Ran all test suites.
 server start at http://localhost:5000
 
 ---
+Database migrations
+---
 ..\forum-api>npm run migrate create "create table threads"
 
 > forum-api@1.0.0 migrate
@@ -374,7 +372,6 @@ CREATE TABLE "threads" (
 );
 INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762159544648_create-table-threads', NOW());
 
-
 Migrations complete!
 
 ..\forum-api>npm run migrate:test up
@@ -393,7 +390,6 @@ CREATE TABLE "threads" (
   "date" TEXT NOT NULL
 );
 INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762159544648_create-table-threads', NOW());
-
 
 Migrations complete!
 
@@ -426,6 +422,8 @@ Forum API V1 Test:
 ✅Authentications => Passed(16) Failed(0) Skipped(0)
 ✅Threads => Passed(14) Failed(0) Skipped(0)
 
+---
+Database migrations
 ---
 ..\forum-api>npm run migrate create "create table comments"
 
@@ -510,6 +508,8 @@ Snapshots:   0 total
 Time:        4.702 s, estimated 5 s
 Ran all test suites.
 
+---
+Database migrations
 ---
 ..\forum-api>npm run migrate create "add column is_delete to table comments"
 
@@ -609,6 +609,66 @@ Forum API V1 Test:
 ✅Comments => Passed(24) Failed(0) Skipped(0)
 
 ---
+Membersihkan seluruh isi table pada database dengan TRUNCATE
+---
 forumapi=> truncate users, authentications, threads, comments;
+
+---
+Database migrations
+---
+..\forum-api>npm run migrate create "create table comment_replies"
+
+> forum-api@1.0.0 migrate
+> node-pg-migrate create create table comment_replies
+
+Created migration -- D:\Programming\Dicoding\Dicoding-Back-End\7_Menjadi_Back-End_Developer_Expert\files\backend-expert-labs\forum-api/migrations/1762554554214_create-table-comment-replies.js
+
+..\forum-api>npm run migrate up     
+
+> forum-api@1.0.0 migrate
+> node-pg-migrate up
+
+> Migrating files:
+> - 1762554554214_create-table-comment-replies
+### MIGRATION 1762554554214_create-table-comment-replies (UP) ###
+CREATE TABLE "comment_replies" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "content" TEXT NOT NULL,
+  "owner" VARCHAR(50) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  "comment_id" VARCHAR(50) NOT NULL REFERENCES comments(id) ON DELETE CASCADE,        
+  "date" TEXT NOT NULL,
+  "is_delete" BOOLEAN DEFAULT false NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762554554214_create-table-comment-replies', NOW());
+
+Migrations complete!
+
+..\forum-api>npm run migrate:test up
+
+> forum-api@1.0.0 migrate:test
+> node-pg-migrate -f config/database/test.json up
+
+> Migrating files:
+> - 1762554554214_create-table-comment-replies
+### MIGRATION 1762554554214_create-table-comment-replies (UP) ###
+CREATE TABLE "comment_replies" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "content" TEXT NOT NULL,
+  "owner" VARCHAR(50) NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  "comment_id" VARCHAR(50) NOT NULL REFERENCES comments(id) ON DELETE CASCADE,        
+  "date" TEXT NOT NULL,
+  "is_delete" BOOLEAN DEFAULT false NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762554554214_create-table-comment-replies', NOW());
+
+Migrations complete!
+
+---
+..\forum-api>npm run test:watch
+Test Suites: 41 passed, 41 total
+Tests:       142 passed, 142 total
+Snapshots:   0 total
+Time:        6.059 s
+Ran all test suites.
 
 ---
