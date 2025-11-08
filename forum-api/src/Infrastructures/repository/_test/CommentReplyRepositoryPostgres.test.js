@@ -1,7 +1,9 @@
+const { nanoid } = require('nanoid');
 const CommentRepliesTableTestHelper = require('../../../../tests/CommentRepliesTableTestHelper');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
+const CommentReplyRepository = require('../../../Domains/comments/CommentReplyRepository');
 const CommentReply = require('../../../Domains/comments/entities/CommentReply');
 const pool = require('../../database/postgres/pool');
 const CommentReplyRepositoryPostgres = require('../CommentReplyRepositoryPostgres');
@@ -16,6 +18,40 @@ describe('CommentReplyRepositoryPostgres', () => {
 
     afterAll(async () => {
         await pool.end();
+    });
+
+    describe('CommentReplyRepositoryPostgres constructor', () => {
+        it('should be instance of CommentReplyRepository', () => {
+            const fakePool = {};
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(fakePool);
+
+            expect(commentReplyRepositoryPostgres).toBeInstanceOf(CommentReplyRepository);
+        });
+
+        it('should set dependencies correctly when provided', () => {
+            const fakePool = {};
+            const fakeIdGenerator = jest.fn().mockReturnValue('reply-123');
+            const fakeDateGenerator = jest.fn().mockReturnValue('2025-09-11T00:00:00Z');
+
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(
+                fakePool,
+                fakeIdGenerator,
+                fakeDateGenerator
+            );
+
+            expect(commentReplyRepositoryPostgres._pool).toBe(fakePool);
+            expect(commentReplyRepositoryPostgres._idGenerator).toBe(fakeIdGenerator);
+            expect(commentReplyRepositoryPostgres._dateGenerator).toBe(fakeDateGenerator);
+        });
+
+        it('should set default dependencies when not provided', () => {
+            const fakePool = {};
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(fakePool);
+
+            expect(commentReplyRepositoryPostgres._idGenerator).toBe(nanoid);
+            expect(commentReplyRepositoryPostgres._dateGenerator).toBeInstanceOf(Function);
+            expect(commentReplyRepositoryPostgres._dateGenerator()).toBeInstanceOf(Date);
+        });
     });
 
     describe('addReply function', () => {

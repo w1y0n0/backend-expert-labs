@@ -1,8 +1,10 @@
+const { nanoid } = require('nanoid');
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const Thread = require('../../../Domains/threads/entities/Thread');
 const pool = require('../../database/postgres/pool');
 const ThreadRepositoryPostgres = require('../ThreadRepositoryPostgres');
+const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 
 describe('ThreadRepositoryPostgres', () => {
   afterEach(async () => {
@@ -12,6 +14,43 @@ describe('ThreadRepositoryPostgres', () => {
 
   afterAll(async () => {
     await pool.end();
+  });
+
+  describe('ThreadRepositoryPostgres constructor', () => {
+    it('should be instance of ThreadRepository', () => {
+      const fakePool = {};
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(fakePool);
+
+      expect(threadRepositoryPostgres).toBeInstanceOf(ThreadRepository);
+    });
+
+    it('should set dependencies correctly when provided', () => {
+      const fakePool = {};
+      const fakeIdGenerator = jest.fn().mockReturnValue('123');
+      const fakeDateGenerator = jest.fn().mockReturnValue('2025-01-01');
+
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(
+        fakePool,
+        fakeIdGenerator,
+        fakeDateGenerator
+      );
+
+      expect(threadRepositoryPostgres._pool).toBe(fakePool);
+      expect(threadRepositoryPostgres._idGenerator).toBe(fakeIdGenerator);
+      expect(threadRepositoryPostgres._dateGenerator).toBe(fakeDateGenerator);
+    });
+
+    it('should set default dependencies when not provided', () => {
+      const fakePool = {};
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(fakePool);
+
+      // pastikan default idGenerator adalah nanoid
+      expect(threadRepositoryPostgres._idGenerator).toBe(nanoid);
+
+      // pastikan default dateGenerator adalah function yang return Date
+      expect(threadRepositoryPostgres._dateGenerator).toBeInstanceOf(Function);
+      expect(threadRepositoryPostgres._dateGenerator()).toBeInstanceOf(Date);
+    });
   });
 
   describe('addThread function', () => {

@@ -704,3 +704,139 @@ Time:        6.728 s, estimated 8 s
 Ran all test suites.
 
 ---
+..\forum-api>npm run test:watch
+ PASS  src/Infrastructures/http/_test/authentications.test.js
+ PASS  src/Infrastructures/http/_test/comment_replies.test.js
+ PASS  src/Infrastructures/http/_test/comments.test.js
+ PASS  src/Infrastructures/http/_test/threads.test.js
+ PASS  src/Infrastructures/http/_test/users.test.js
+ PASS  src/Infrastructures/security/_test/BcryptPasswordHash.test.js
+ PASS  src/Infrastructures/repository/_test/CommentReplyRepositoryPostgres.test.js
+ PASS  src/Infrastructures/http/_test/createServer.test.js
+ PASS  src/Infrastructures/repository/_test/ThreadRepositoryPostgres.test.js
+ PASS  src/Infrastructures/repository/_test/CommentRepositoryPostgress.test.js
+ PASS  src/Infrastructures/repository/_test/UserRepositoryPostgres.test.js
+ PASS  src/Applications/use_case/_test/AddUserUseCase.test.js
+ PASS  src/Infrastructures/repository/_test/AuthenticationRepositoryPostgres.test.js
+ PASS  src/Infrastructures/security/_test/JwtTokenManager.test.js
+ PASS  src/Domains/users/entities/_test/RegisteredUser.test.js
+ PASS  src/Applications/use_case/_test/AddCommentReplyUseCase.test.js
+ PASS  src/Applications/use_case/_test/GetThreadDetailUseCase.test.js
+ PASS  src/Domains/threads/entities/_test/ThreadDetail.test.js
+ PASS  src/Domains/users/entities/_test/RegisterUser.test.js
+ PASS  src/Applications/security/_test/PasswordHash.test.js
+ PASS  src/Commons/exceptions/_test/AuthenticationError.test.js
+ PASS  src/Applications/use_case/_test/DeleteCommentUseCase.test.js
+ PASS  src/Domains/comments/entities/_test/CommentReply.test.js
+ PASS  src/Applications/use_case/_test/DeleteCommentReplyUseCase.test.js
+ PASS  src/Domains/users/_test/UserRepository.test.js
+ PASS  src/Domains/threads/entities/_test/Thread.test.js
+ PASS  src/Applications/use_case/_test/DeleteAuthenticationUseCase.test.js
+ PASS  src/Applications/use_case/_test/RefreshAuthenticationUseCase.test.js
+ PASS  src/Domains/comments/entities/_test/Comment.test.js
+ PASS  src/Applications/use_case/_test/LogoutUserUseCase.test.js
+ PASS  src/Domains/users/entities/_test/UserLogin.test.js
+ PASS  src/Domains/authentications/entities/_test/NewAuth.test.js
+ PASS  src/Commons/utils/_test/mapper.test.js
+ PASS  src/Domains/comments/_test/CommentReplyRepository.test.js
+ PASS  src/Applications/use_case/_test/AddCommentUseCase.test.js
+ PASS  src/Domains/authentications/_test/AuthenticationRepository.test.js
+ PASS  src/Commons/exceptions/_test/DomainErrorTranslator.test.js
+ PASS  src/Commons/exceptions/_test/AuthorizationError.test.js
+ PASS  src/Commons/exceptions/_test/NotFoundError.test.js
+ PASS  src/Domains/threads/_test/ThreadRepository.test.js
+ PASS  src/Applications/use_case/_test/AddThreadUseCase.test.js
+ PASS  src/Applications/use_case/_test/LoginUserUseCase.test.js
+ PASS  src/Domains/comments/_test/CommentRepository.test.js
+ PASS  src/Commons/exceptions/_test/ClientError.test.js
+ PASS  src/Commons/exceptions/_test/InvariantError.test.js
+ PASS  src/Applications/security/_test/AuthenticationTokenManager.test.js
+--------------------------------------|---------|----------|---------|---------|-------------------                      
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                       
+--------------------------------------|---------|----------|---------|---------|-------------------
+All files                             |     100 |      100 |     100 |     100 |                  
+ Applications/security                |     100 |      100 |     100 |     100 |                  
+  AuthenticationTokenManager.js       |     100 |      100 |     100 |     100 |                  
+  PasswordHash.js                     |     100 |      100 |     100 |     100 |                  
+ Applications/use_case                |     100 |      100 |     100 |     100 |                  
+  AddCommentReplyUseCase.js           |     100 |      100 |     100 |     100 |                  
+  AddCommentUseCase.js                |     100 |      100 |     100 |     100 |                  
+  AddThreadUseCase.js                 |     100 |      100 |     100 |     100 |                  
+  AddUserUseCase.js                   |     100 |      100 |     100 |     100 |                  
+  DeleteAuthenticationUseCase.js      |     100 |      100 |     100 |     100 |                  
+  DeleteCommentReplyUseCase.js        |     100 |      100 |     100 |     100 |                  
+  DeleteCommentUseCase.js             |     100 |      100 |     100 |     100 |                  
+  GetThreadDetailUseCase.js           |     100 |      100 |     100 |     100 |                  
+  LoginUserUseCase.js                 |     100 |      100 |     100 |     100 |                  
+  LogoutUserUseCase.js                |     100 |      100 |     100 |     100 |                  
+  RefreshAuthenticationUseCase.js     |     100 |      100 |     100 |     100 |                  
+ Commons/exceptions                   |     100 |      100 |     100 |     100 |                  
+  AuthenticationError.js              |     100 |      100 |     100 |     100 |                  
+  AuthorizationError.js               |     100 |      100 |     100 |     100 |                  
+  ClientError.js                      |     100 |      100 |     100 |     100 |                  
+  DomainErrorTranslator.js            |     100 |      100 |     100 |     100 |                  
+  InvariantError.js                   |     100 |      100 |     100 |     100 |                  
+  NotFoundError.js                    |     100 |      100 |     100 |     100 |                  
+ Commons/utils                        |     100 |      100 |     100 |     100 |                  
+  mapper.js                           |     100 |      100 |     100 |     100 |                  
+ Domains/authentications              |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepository.js         |     100 |      100 |     100 |     100 |                  
+ Domains/authentications/entities     |     100 |      100 |     100 |     100 |                  
+  NewAuth.js                          |     100 |      100 |     100 |     100 |                  
+ Domains/comments                     |     100 |      100 |     100 |     100 |                  
+  CommentReplyRepository.js           |     100 |      100 |     100 |     100 |                  
+  CommentRepository.js                |     100 |      100 |     100 |     100 |                  
+ Domains/comments/entities            |     100 |      100 |     100 |     100 |                  
+  Comment.js                          |     100 |      100 |     100 |     100 |                  
+  CommentReply.js                     |     100 |      100 |     100 |     100 |                  
+ Domains/threads                      |     100 |      100 |     100 |     100 |                  
+  ThreadRepository.js                 |     100 |      100 |     100 |     100 |                  
+ Domains/threads/entities             |     100 |      100 |     100 |     100 |                  
+  Thread.js                           |     100 |      100 |     100 |     100 |                  
+  ThreadDetail.js                     |     100 |      100 |     100 |     100 |                  
+ Domains/users                        |     100 |      100 |     100 |     100 |                  
+  UserRepository.js                   |     100 |      100 |     100 |     100 |                  
+ Domains/users/entities               |     100 |      100 |     100 |     100 |                   
+  RegisterUser.js                     |     100 |      100 |     100 |     100 |                  
+  RegisteredUser.js                   |     100 |      100 |     100 |     100 |                  
+  UserLogin.js                        |     100 |      100 |     100 |     100 |                  
+ Infrastructures/http                 |     100 |      100 |     100 |     100 |                  
+  createServer.js                     |     100 |      100 |     100 |     100 |                  
+ Infrastructures/repository           |     100 |      100 |     100 |     100 |                  
+  AuthenticationRepositoryPostgres.js |     100 |      100 |     100 |     100 |                  
+  CommentReplyRepositoryPostgres.js   |     100 |      100 |     100 |     100 |                  
+  CommentRepositoryPostgres.js        |     100 |      100 |     100 |     100 |                  
+  ThreadRepositoryPostgres.js         |     100 |      100 |     100 |     100 |                  
+  UserRepositoryPostgres.js           |     100 |      100 |     100 |     100 |                  
+ Infrastructures/security             |     100 |      100 |     100 |     100 |                  
+  BcryptPasswordHash.js               |     100 |      100 |     100 |     100 |                  
+  JwtTokenManager.js                  |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/authentications  |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/comment_replies  |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/comments         |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/threads          |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+ Interfaces/http/api/users            |     100 |      100 |     100 |     100 |                  
+  handler.js                          |     100 |      100 |     100 |     100 |                  
+  index.js                            |     100 |      100 |     100 |     100 |                  
+  routes.js                           |     100 |      100 |     100 |     100 |                  
+--------------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 46 passed, 46 total
+Tests:       185 passed, 185 total
+Snapshots:   0 total
+Time:        9.162 s, estimated 11 s
+Ran all test suites.
+
+---

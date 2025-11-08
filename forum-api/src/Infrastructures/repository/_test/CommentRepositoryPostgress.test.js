@@ -1,6 +1,8 @@
+const { nanoid } = require('nanoid');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
+const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const Comment = require('../../../Domains/comments/entities/Comment');
 const pool = require('../../database/postgres/pool');
 const CommentRepositoryPostgres = require('../CommentRepositoryPostgres');
@@ -14,6 +16,43 @@ describe('CommentRepositoryPostgres', () => {
 
   afterAll(async () => {
     await pool.end();
+  });
+
+  describe('CommentRepositoryPostgres constructor', () => {
+    it('should be instance of CommentRepository', () => {
+      const fakePool = {};
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(fakePool);
+
+      expect(commentRepositoryPostgres).toBeInstanceOf(CommentRepository);
+    });
+
+    it('should set dependencies correctly when provided', () => {
+      const fakePool = {};
+      const fakeIdGenerator = jest.fn().mockReturnValue('xyz');
+      const fakeDateGenerator = jest.fn().mockReturnValue('2025-09-11T00:00:00Z');
+
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(
+        fakePool,
+        fakeIdGenerator,
+        fakeDateGenerator
+      );
+
+      expect(commentRepositoryPostgres._pool).toBe(fakePool);
+      expect(commentRepositoryPostgres._idGenerator).toBe(fakeIdGenerator);
+      expect(commentRepositoryPostgres._dateGenerator).toBe(fakeDateGenerator);
+    });
+
+    it('should set default dependencies when not provided', () => {
+      const fakePool = {};
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(fakePool);
+
+      // pastikan default idGenerator adalah nanoid
+      expect(commentRepositoryPostgres._idGenerator).toBe(nanoid);
+
+      // pastikan default dateGenerator adalah function yang return Date
+      expect(commentRepositoryPostgres._dateGenerator).toBeInstanceOf(Function);
+      expect(commentRepositoryPostgres._dateGenerator()).toBeInstanceOf(Date);
+    });
   });
 
   describe('addComment function', () => {
