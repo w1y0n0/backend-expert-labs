@@ -54,7 +54,7 @@ class CommentRepositoryPostgress extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError('comment tidak tersedia');
+      throw new NotFoundError('komentar tidak ditemukan');
     }
   }
 
@@ -80,7 +80,7 @@ class CommentRepositoryPostgress extends CommentRepository {
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError('comment tidak tersedia');
+      throw new NotFoundError('komentar tidak ditemukan');
     }
   }
 

@@ -95,7 +95,7 @@ describe('CommentRepositoryPostgres', () => {
       // Action & Assert
       await expect(commentRepositoryPostgres.checkCommentExist('comment-123'))
         .rejects
-        .toThrowError('comment tidak tersedia');
+        .toThrowError('komentar tidak ditemukan');
     });
   });
 
@@ -145,7 +145,7 @@ describe('CommentRepositoryPostgres', () => {
       // Action & Assert
       await expect(commentRepositoryPostgres.deleteComment('comment-123', 'user-123'))
         .rejects
-        .toThrowError('comment tidak tersedia');
+        .toThrowError('komentar tidak ditemukan');
     });
   });
 

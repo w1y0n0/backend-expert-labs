@@ -290,6 +290,10 @@ container.register([
       injectType: 'destructuring',
       dependencies: [
         {
+          name: 'threadRepository',
+          internal: ThreadRepository.name,
+        },
+        {
           name: 'commentRepository',
           internal: CommentRepository.name,
         },
