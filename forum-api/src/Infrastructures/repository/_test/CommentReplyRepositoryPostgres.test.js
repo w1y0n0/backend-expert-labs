@@ -12,14 +12,14 @@ describe('CommentReplyRepositoryPostgres', () => {
         await CommentsTableTestHelper.cleanTable();
         await ThreadsTableTestHelper.cleanTable();
         await UsersTableTestHelper.cleanTable();
-});
+    });
 
     afterAll(async () => {
         await pool.end();
     });
 
     describe('addReply function', () => {
-        it('should persist comment and return reply correctly', async () => {
+        it('should persist reply and return reply correctly', async () => {
             // Arrange
             await UsersTableTestHelper.addUser({
                 id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
@@ -77,8 +77,8 @@ describe('CommentReplyRepositoryPostgres', () => {
             };
 
             const fakeIdGenerator = () => '123'; // stub!
-            const fixedDate = new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
-            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, fakeIdGenerator, fixedDate);
+            const fixedDateGenerator = () => new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, fakeIdGenerator, fixedDateGenerator);
 
             // Action
             const reply = await commentReplyRepositoryPostgres.addReply(payload);
@@ -89,7 +89,7 @@ describe('CommentReplyRepositoryPostgres', () => {
                 content: 'A reply',
                 owner: 'user-123',
                 commentId: 'comment-123',
-                date: fixedDate.toISOString(),
+                date: new Date(Date.UTC(2025, 8, 7, 0, 0, 0)).toISOString(),
             }));
         });
     });
@@ -147,7 +147,7 @@ describe('CommentReplyRepositoryPostgres', () => {
                 date: '2025-09-13T10:00:00.000Z',
                 isDelete: false,
             };
-            CommentRepliesTableTestHelper.addReply(expectedReply)
+            await CommentRepliesTableTestHelper.addReply(expectedReply);
 
             const fakeIdGenerator = () => '123'; // stub!
             const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, fakeIdGenerator);
@@ -223,6 +223,98 @@ describe('CommentReplyRepositoryPostgres', () => {
 
             // Assert
             expect(replies).toStrictEqual([expectedReply]);
+        });
+    });
+
+    describe('checkReplyExist function', () => {
+        it('should throw error on reply does not exist', async () => {
+            // Arrange
+            await UsersTableTestHelper.addUser({
+                id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+            });
+            await UsersTableTestHelper.addUser({
+                id: 'user-456', username: 'dicoding2', password: 'secret', fullname: 'Dicoding Indonesia 2',
+            });
+            await ThreadsTableTestHelper.addThread({
+                id: 'thread-123', title: 'A title', body: 'A body', owner: 'user-123'
+            });
+
+            const fakeIdGenerator = () => '123'; // stub!
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+            // Action & Assert
+            await expect(commentReplyRepositoryPostgres.checkReplyExist('reply-123'))
+                .rejects
+                .toThrowError('balasan tidak ditemukan');
+        });
+    });
+
+    describe('checkReplyOwnership function', () => {
+        it('should throw error when a non-owner tries to access the comment', async () => {
+            // Arrange
+            await UsersTableTestHelper.addUser({
+                id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+            });
+            await UsersTableTestHelper.addUser({
+                id: 'user-456', username: 'dicoding2', password: 'secret', fullname: 'Dicoding Indonesia 2',
+            });
+            await ThreadsTableTestHelper.addThread({
+                id: 'thread-123', title: 'A title', body: 'A body', owner: 'user-123'
+            });
+            await CommentsTableTestHelper.addComment({
+                id: 'comment-123',
+                content: 'A comment',
+                owner: 'user-123',
+                threadId: 'thread-123',
+                date: '2025-09-07T10:00:00.000Z',
+                isDelete: false,
+            });
+
+            const fakeIdGenerator = () => '123'; // stub!
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+            // Action
+            await commentReplyRepositoryPostgres.addReply({
+                content: 'A content',
+                userId: 'user-123',
+                commentId: 'comment-123'
+            });
+
+            // Assert
+            await expect(commentReplyRepositoryPostgres.checkReplyOwnership('reply-123', 'user-456'))
+                .rejects
+                .toThrowError('balasan ini bukan milik Anda');
+        });
+    });
+
+    describe('deleteReply function', () => {
+        it('should not delete non existing reply', async () => {
+            // Arrange
+            await UsersTableTestHelper.addUser({
+                id: 'user-123', username: 'dicoding', password: 'secret', fullname: 'Dicoding Indonesia',
+            });
+            await UsersTableTestHelper.addUser({
+                id: 'user-456', username: 'dicoding2', password: 'secret', fullname: 'Dicoding Indonesia 2',
+            });
+            await ThreadsTableTestHelper.addThread({
+                id: 'thread-123', title: 'A title', body: 'A body', owner: 'user-123'
+            });
+            await CommentsTableTestHelper.addComment({
+                id: 'comment-123',
+                content: 'A comment',
+                owner: 'user-123',
+                threadId: 'thread-123',
+                date: '2025-09-07T10:00:00.000Z',
+                isDelete: false,
+            });
+
+            const fakeIdGenerator = () => '123'; // stub!
+            const commentReplyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+            // Action & Assert
+            await expect(commentReplyRepositoryPostgres.deleteReply('reply-123', 'user-123'))
+                .rejects
+                .toThrowError('balasan ini tidak ditemukan');
         });
     });
 });

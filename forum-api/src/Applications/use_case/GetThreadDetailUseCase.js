@@ -19,12 +19,12 @@ class GetThreadDetailUseCase {
         const replies = await this._commentReplyRepository.getReplies()
 
         const mappedComments = comments
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
             .map(comment => ({
                 ...comment,
                 username: users.find(user => user.id === comment.owner).username,
                 replies: replies
-                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
                     .filter(reply => reply.commentId === comment.id)
                     .map(reply => ({
                         ...reply,

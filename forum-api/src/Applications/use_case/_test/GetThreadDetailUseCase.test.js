@@ -89,13 +89,13 @@ describe('GetThreadDetailUseCase', () => {
         ]
 
         const mappedExpectedComments = expectedComments
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
             .map(comment => ({
                 ...comment,
                 username: expectedUsers.find(user => user.id === comment.owner).username,
                 replies: expectedReplies
                     .filter(reply => reply.commentId === comment.id)
-                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .sort((a, b) => new Date(a.date) - new Date(b.date))
                     .map(reply => ({
                         ...reply,
                         username: expectedUsers.find(user => user.id === reply.owner).username,

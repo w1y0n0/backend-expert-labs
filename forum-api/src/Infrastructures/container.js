@@ -101,7 +101,7 @@ container.register([
           concrete: nanoid,
         },
         {
-          concrete: new Date(),
+          concrete: () => new Date(),
         },
       ],
     },
@@ -118,7 +118,7 @@ container.register([
           concrete: nanoid,
         },
         {
-          concrete: new Date(),
+          concrete: () => new Date(),
         },
       ],
     },
@@ -135,7 +135,7 @@ container.register([
           concrete: nanoid,
         },
         {
-          concrete: new Date(),
+          concrete: () => new Date(),
         },
       ],
     },

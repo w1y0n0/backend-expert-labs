@@ -6,16 +6,16 @@ const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
 
 class CommentReplyRepositoryPostgres extends CommentReplyRepository {
-    constructor(pool, idGenerator = nanoid, date = new Date()) {
+    constructor(pool, idGenerator = nanoid, dateGenerator = () => new Date()) {
         super();
         this._pool = pool;
         this._idGenerator = idGenerator;
-        this._date = date;
+        this._dateGenerator = dateGenerator;
     }
 
     async addReply({ content, userId, commentId }) {
         const id = `reply-${this._idGenerator()}`;
-        const date = this._date.toISOString();
+        const date = this._dateGenerator().toISOString();
 
         const reply = new CommentReply({
             id,

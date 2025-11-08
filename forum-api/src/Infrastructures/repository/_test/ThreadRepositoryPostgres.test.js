@@ -49,8 +49,8 @@ describe('ThreadRepositoryPostgres', () => {
         owner: 'user-123',
       };
       const fakeIdGenerator = () => '123'; // stub!
-      const fixedDate = new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
-      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator, fixedDate);
+      const fixedDateGenerator = () => new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator, fixedDateGenerator);
 
       // Action
       const thread = await threadRepositoryPostgres.addThread(payload);
@@ -61,7 +61,7 @@ describe('ThreadRepositoryPostgres', () => {
         title: 'A thread',
         body: 'A body',
         owner: 'user-123',
-        date: fixedDate.toISOString(),
+        date: new Date(Date.UTC(2025, 8, 7, 0, 0, 0)).toISOString(),
       }));
     });
   });
@@ -79,7 +79,7 @@ describe('ThreadRepositoryPostgres', () => {
       // Action & Assert
       await expect(threadRepositoryPostgres.checkThreadExist('thread-123'))
         .rejects
-        .toThrowError('thread tidak ditemukan');
+        .toThrowError('thread tidak ditemukan')
     });
 
     it('should not throw error when thread exist', async () => {
@@ -115,7 +115,7 @@ describe('ThreadRepositoryPostgres', () => {
       // Action & Assert
       await expect(threadRepositoryPostgres.getThreadById('thread-123'))
         .rejects
-        .toThrowError('thread tidak ditemukan');
+        .toThrowError('thread tidak ditemukan')
     });
 
     it('should return thread when thread exist', async () => {
@@ -130,7 +130,7 @@ describe('ThreadRepositoryPostgres', () => {
         body: 'A body',
         owner: 'user-123',
         date: '2025-09-07T10:00:00.000Z',
-      };
+      }
       await ThreadsTableTestHelper.addThread(expectedThread);
 
       const fakeIdGenerator = () => '123'; // stub!

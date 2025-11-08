@@ -1,19 +1,19 @@
 const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 const Thread = require('../../Domains/threads/entities/Thread');
-const ThreadRepository = require('../../Domains/threads/ThreadRepository');
+const ThreadRepository = require("../../Domains/threads/ThreadRepository");
 const { nanoid } = require('nanoid');
 
 class ThreadRepositoryPostgres extends ThreadRepository {
-  constructor(pool, idGenerator = nanoid, date = new Date()) {
+  constructor(pool, idGenerator = nanoid, dateGenerator = () => new Date()) {
     super();
     this._pool = pool;
     this._idGenerator = idGenerator;
-    this._date = date;
+    this._dateGenerator = dateGenerator;
   }
 
   async addThread({ title, body, owner }) {
     const id = `thread-${this._idGenerator()}`;
-    const date = this._date.toISOString();
+    const date = this._dateGenerator().toISOString();
 
     const thread = new Thread({
       id,

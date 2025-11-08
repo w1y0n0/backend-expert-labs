@@ -6,16 +6,16 @@ const Comment = require('../../Domains/comments/entities/Comment');
 const { nanoid } = require('nanoid');
 
 class CommentRepositoryPostgres extends CommentRepository {
-  constructor(pool, idGenerator = nanoid, date = new Date()) {
+  constructor(pool, idGenerator = nanoid, dateGenerator = () => new Date()) {
     super();
     this._pool = pool;
     this._idGenerator = idGenerator;
-    this._date = date;
+    this._dateGenerator = dateGenerator;
   }
 
   async addComment({ content, userId, threadId }) {
     const id = `comment-${this._idGenerator()}`;
-    const date = this._date.toISOString();
+    const date = this._dateGenerator().toISOString();
 
     const comment = new Comment({
       id,

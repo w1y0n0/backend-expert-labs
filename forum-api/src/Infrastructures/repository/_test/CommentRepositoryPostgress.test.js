@@ -59,8 +59,8 @@ describe('CommentRepositoryPostgres', () => {
       };
 
       const fakeIdGenerator = () => '123'; // stub!
-      const fixedDate = new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
-      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator, fixedDate);
+      const fixedDateGenerator = () => new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator, fixedDateGenerator);
 
       // Action
       const commment = await commentRepositoryPostgres.addComment(payload);
@@ -71,7 +71,7 @@ describe('CommentRepositoryPostgres', () => {
         content: 'A content',
         owner: 'user-123',
         threadId: 'thread-123',
-        date: fixedDate.toISOString(),
+        date: new Date(Date.UTC(2025, 8, 7, 0, 0, 0)).toISOString(),
       }));
     });
   });
