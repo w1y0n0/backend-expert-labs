@@ -26,7 +26,7 @@ const mapCommentReplyDbToModel = (reply) => ({
 
 const mapCommentReplyModelToSummary = (reply) => ({
     id: reply.id,
-    content: reply.isDelete ? reply.content : '**balasan telah dihapus**',
+    content: !reply.isDelete ? reply.content : '**balasan telah dihapus**',
     date: reply.date,
     username: reply.username,
 });

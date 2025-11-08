@@ -24,13 +24,13 @@ class GetThreadDetailUseCase {
                 ...comment,
                 username: users.find(user => user.id === comment.owner).username,
                 replies: replies
-                    .filter(reply => reply.commentId === comment.id)
                     .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .filter(reply => reply.commentId === comment.id)
                     .map(reply => ({
                         ...reply,
                         username: users.find(user => user.id === reply.owner).username,
                     }))
-                    .map(mapCommentReplyModelToSummary),
+                    .map(mapCommentReplyModelToSummary)
             }))
             .map(mapCommentModelToSummary);
 

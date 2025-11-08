@@ -12,7 +12,7 @@ describe('CommentReplyRepositoryPostgres', () => {
         await CommentsTableTestHelper.cleanTable();
         await ThreadsTableTestHelper.cleanTable();
         await UsersTableTestHelper.cleanTable();
-    });
+});
 
     afterAll(async () => {
         await pool.end();

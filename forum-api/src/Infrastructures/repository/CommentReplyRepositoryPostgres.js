@@ -2,6 +2,8 @@ const CommentReplyRepository = require('../../Domains/comments/CommentReplyRepos
 const { nanoid } = require('nanoid');
 const CommentReply = require('../../Domains/comments/entities/CommentReply');
 const { mapCommentReplyDbToModel } = require('../../Commons/utils/mapper');
+const NotFoundError = require('../../Commons/exceptions/NotFoundError');
+const AuthorizationError = require('../../Commons/exceptions/AuthorizationError');
 
 class CommentReplyRepositoryPostgres extends CommentReplyRepository {
     constructor(pool, idGenerator = nanoid, date = new Date()) {
@@ -60,6 +62,45 @@ class CommentReplyRepositoryPostgres extends CommentReplyRepository {
         const result = await this._pool.query(query);
 
         return result.rows.map(mapCommentReplyDbToModel);
+    }
+
+    async checkReplyExist(replyId) {
+        const query = {
+            text: 'SELECT id FROM comment_replies WHERE id = $1 AND is_delete = false',
+            values: [replyId],
+        };
+
+        const result = await this._pool.query(query);
+
+        if (!result.rowCount) {
+            throw new NotFoundError('balasan tidak ditemukan');
+        }
+    }
+
+    async checkReplyOwnership(replyId, userId) {
+        const query = {
+            text: 'SELECT id FROM comment_replies WHERE id = $1 AND owner = $2 AND is_delete = false',
+            values: [replyId, userId],
+        };
+
+        const result = await this._pool.query(query);
+
+        if (!result.rowCount) {
+            throw new AuthorizationError('balasan ini bukan milik Anda');
+        }
+    }
+
+    async deleteReply(replyId, userId) {
+        const query = {
+            text: 'UPDATE comment_replies SET is_delete = true WHERE id = $1 AND owner = $2',
+            values: [replyId, userId],
+        };
+
+        const result = await this._pool.query(query);
+
+        if (!result.rowCount) {
+            throw new NotFoundError('balasan ini tidak ditemukan');
+        }
     }
 }
 
