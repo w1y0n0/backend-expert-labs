@@ -23,7 +23,11 @@ class CommentRepliesHandler {
         return h.response({
             status: 'success',
             data: {
-                addedReply,
+                addedReply: {
+                    id: addedReply.id,
+                    content: addedReply.content,
+                    owner: addedReply.owner,
+                },
             },
         }).code(201);
     }

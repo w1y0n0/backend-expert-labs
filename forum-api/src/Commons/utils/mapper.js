@@ -12,6 +12,23 @@ const mapCommentModelToSummary = (comment) => ({
     username: comment.username,
     date: comment.date,
     content: !comment.isDelete ? comment.content : '**komentar telah dihapus**',
+    replies: comment.replies,
 });
 
-module.exports = { mapCommentDbToModel, mapCommentModelToSummary };
+const mapCommentReplyDbToModel = (reply) => ({
+    id: reply.id,
+    content: reply.content,
+    owner: reply.owner,
+    commentId: reply.comment_id,
+    date: reply.date,
+    isDelete: reply.is_delete,
+});
+
+const mapCommentReplyModelToSummary = (reply) => ({
+    id: reply.id,
+    content: reply.isDelete ? reply.content : '**balasan telah dihapus**',
+    date: reply.date,
+    username: reply.username,
+});
+
+module.exports = { mapCommentDbToModel, mapCommentModelToSummary, mapCommentReplyDbToModel, mapCommentReplyModelToSummary };

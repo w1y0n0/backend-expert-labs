@@ -5,7 +5,7 @@ const CommentRepository = require('../../Domains/comments/CommentRepository');
 const Comment = require('../../Domains/comments/entities/Comment');
 const { nanoid } = require('nanoid');
 
-class CommentRepositoryPostgress extends CommentRepository {
+class CommentRepositoryPostgres extends CommentRepository {
   constructor(pool, idGenerator = nanoid, date = new Date()) {
     super();
     this._pool = pool;
@@ -96,4 +96,4 @@ class CommentRepositoryPostgress extends CommentRepository {
   }
 }
 
-module.exports = CommentRepositoryPostgress;
+module.exports = CommentRepositoryPostgres;

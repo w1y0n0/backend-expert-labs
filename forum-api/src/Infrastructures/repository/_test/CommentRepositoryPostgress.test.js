@@ -3,7 +3,7 @@ const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const Comment = require('../../../Domains/comments/entities/Comment');
 const pool = require('../../database/postgres/pool');
-const CommentRepositoryPostgress = require('../CommentRepositoryPostgress');
+const CommentRepositoryPostgres = require('../CommentRepositoryPostgres');
 
 describe('CommentRepositoryPostgres', () => {
   afterEach(async () => {
@@ -33,7 +33,7 @@ describe('CommentRepositoryPostgres', () => {
       };
 
       const fakeIdGenerator = () => '123'; // stub!
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
       await commentRepositoryPostgres.addComment(payload);
@@ -60,7 +60,7 @@ describe('CommentRepositoryPostgres', () => {
 
       const fakeIdGenerator = () => '123'; // stub!
       const fixedDate = new Date(Date.UTC(2025, 8, 7, 0, 0, 0));
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator, fixedDate);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator, fixedDate);
 
       // Action
       const commment = await commentRepositoryPostgres.addComment(payload);
@@ -90,7 +90,7 @@ describe('CommentRepositoryPostgres', () => {
       });
 
       const fakeIdGenerator = () => '123'; // stub!
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action & Assert
       await expect(commentRepositoryPostgres.checkCommentExist('comment-123'))
@@ -113,7 +113,7 @@ describe('CommentRepositoryPostgres', () => {
       });
 
       const fakeIdGenerator = () => '123'; // stub!
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
       await commentRepositoryPostgres.addComment({
@@ -140,7 +140,7 @@ describe('CommentRepositoryPostgres', () => {
       });
 
       const fakeIdGenerator = () => '123'; // stub!
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action & Assert
       await expect(commentRepositoryPostgres.deleteComment('comment-123', 'user-123'))
@@ -160,7 +160,7 @@ describe('CommentRepositoryPostgres', () => {
       });
 
       const fakeIdGenerator = () => '123'; // stub!
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
       const comments = await commentRepositoryPostgres.getCommentsByThreadId('thread-123');
@@ -189,7 +189,7 @@ describe('CommentRepositoryPostgres', () => {
       await CommentsTableTestHelper.addComment(expectedComment);
 
       const fakeIdGenerator = () => '123'; // stub!
-      const commentRepositoryPostgres = new CommentRepositoryPostgress(pool, fakeIdGenerator);
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
       // Action
       const comments = await commentRepositoryPostgres.getCommentsByThreadId('thread-123');

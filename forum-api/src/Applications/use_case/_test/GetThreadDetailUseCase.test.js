@@ -1,12 +1,14 @@
 const ThreadDetail = require("../../../Domains/threads/entities/ThreadDetail");
 const ThreadRepository = require("../../../Domains/threads/ThreadRepository");
 const CommentRepository = require("../../../Domains/comments/CommentRepository");
+const CommentReplyRepository = require("../../../Domains/comments/CommentReplyRepository");
 const UserRepository = require("../../../Domains/users/UserRepository");
 const GetThreadDetailUseCase = require("../GetThreadDetailUseCase");
 const RegisteredUser = require("../../../Domains/users/entities/RegisteredUser");
 const Comment = require("../../../Domains/comments/entities/Comment");
+const CommentReply = require("../../../Domains/comments/entities/CommentReply");
 const Thread = require("../../../Domains/threads/entities/Thread");
-const { mapCommentModelToSummary } = require("../../../Commons/utils/mapper");
+const { mapCommentModelToSummary, mapCommentReplyModelToSummary } = require("../../../Commons/utils/mapper");
 
 describe('GetThreadDetailUseCase', () => {
     const useCasePayload = {
@@ -16,19 +18,23 @@ describe('GetThreadDetailUseCase', () => {
     let mockThreadRepository;
     let mockUserRepository;
     let mockCommentRepository;
+    let mockCommentReplyRepository;
 
     beforeEach(() => {
         mockThreadRepository = new ThreadRepository();
         mockUserRepository = new UserRepository();
         mockCommentRepository = new CommentRepository();
+        mockCommentReplyRepository = new CommentReplyRepository();
 
         mockThreadRepository.checkThreadExist = jest.fn();
         mockThreadRepository.getThreadById = jest.fn();
         mockUserRepository.getUserById = jest.fn();
         mockUserRepository.getUsers = jest.fn();
         mockCommentRepository.getCommentsByThreadId = jest.fn();
+        mockCommentReplyRepository.getReplies = jest.fn();
     });
 
+    // TODO: - Don't forget to add test for getReplies
     it('should orchestrating the get thread detail action correctly', async () => {
         // Arrange
         const expectedThread = new Thread({
@@ -57,7 +63,7 @@ describe('GetThreadDetailUseCase', () => {
             }),
 
             new Comment({
-                id: 'comment-123',
+                id: 'comment-456',
                 content: 'A content',
                 owner: 'user-123',
                 threadId: 'thread-123',
@@ -65,10 +71,36 @@ describe('GetThreadDetailUseCase', () => {
             }),
         ];
 
+        const expectedReplies = [
+            new CommentReply({
+                id: 'reply-123',
+                content: 'A reply',
+                owner: 'user-123',
+                commentId: 'comment-123',
+                date: '2025-09-20T10:00:00.000Z',
+            }),
+            new CommentReply({
+                id: 'reply-456',
+                content: 'A reply',
+                owner: 'user-123',
+                commentId: 'comment-123',
+                date: '2025-09-26T10:00:00.000Z',
+            }),
+        ]
+
         const mappedExpectedComments = expectedComments
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map(comment => ({
-                ...comment, username: expectedUsers.find(user => user.id === comment.owner).username,
+                ...comment,
+                username: expectedUsers.find(user => user.id === comment.owner).username,
+                replies: expectedReplies
+                    .filter(reply => reply.commentId === comment.id)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .map(reply => ({
+                        ...reply,
+                        username: expectedUsers.find(user => user.id === reply.owner).username,
+                    }))
+                    .map(mapCommentReplyModelToSummary),
             }))
             .map(mapCommentModelToSummary);
 
@@ -86,11 +118,13 @@ describe('GetThreadDetailUseCase', () => {
         mockUserRepository.getUserById.mockResolvedValue(expectedUser);
         mockUserRepository.getUsers.mockResolvedValue(expectedUsers);
         mockCommentRepository.getCommentsByThreadId.mockResolvedValue(expectedComments);
+        mockCommentReplyRepository.getReplies.mockResolvedValue(expectedReplies);
 
         const getThreadDetailUseCase = new GetThreadDetailUseCase({
             threadRepository: mockThreadRepository,
             userRepository: mockUserRepository,
             commentRepository: mockCommentRepository,
+            commentReplyRepository: mockCommentReplyRepository,
         });
 
         // Action
@@ -115,6 +149,9 @@ describe('GetThreadDetailUseCase', () => {
 
         expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(expectedThread.id);
         expect(mockCommentRepository.getCommentsByThreadId).toBeCalledTimes(1);
+
+        expect(mockCommentReplyRepository.getReplies).toBeCalledWith();
+        expect(mockCommentReplyRepository.getReplies).toBeCalledTimes(1);
     });
 
     it('should throw error when thread does not exist', async () => {
@@ -125,6 +162,7 @@ describe('GetThreadDetailUseCase', () => {
             threadRepository: mockThreadRepository,
             userRepository: mockUserRepository,
             commentRepository: mockCommentRepository,
+            commentReplyRepository: mockCommentReplyRepository,
         });
 
         // Act & Assert
@@ -138,6 +176,7 @@ describe('GetThreadDetailUseCase', () => {
         expect(mockUserRepository.getUserById).not.toBeCalled();
         expect(mockUserRepository.getUsers).not.toBeCalled();
         expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
+        expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
     });
 
     it('should throw error when getThreadById fails', async () => {
@@ -149,6 +188,7 @@ describe('GetThreadDetailUseCase', () => {
             threadRepository: mockThreadRepository,
             userRepository: mockUserRepository,
             commentRepository: mockCommentRepository,
+            commentReplyRepository: mockCommentReplyRepository,
         });
 
         // Act & Assert
@@ -164,6 +204,7 @@ describe('GetThreadDetailUseCase', () => {
         expect(mockUserRepository.getUserById).not.toBeCalled();
         expect(mockUserRepository.getUsers).not.toBeCalled();
         expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
+        expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
     });
 
     it('should throw error when getUserById fails', async () => {
@@ -184,6 +225,7 @@ describe('GetThreadDetailUseCase', () => {
             threadRepository: mockThreadRepository,
             userRepository: mockUserRepository,
             commentRepository: mockCommentRepository,
+            commentReplyRepository: mockCommentReplyRepository,
         });
 
         // Act & Assert
@@ -201,6 +243,7 @@ describe('GetThreadDetailUseCase', () => {
 
         expect(mockUserRepository.getUsers).not.toBeCalled();
         expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
+        expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
     });
 
     it('should throw error when getUsers fails', async () => {
@@ -228,6 +271,7 @@ describe('GetThreadDetailUseCase', () => {
             threadRepository: mockThreadRepository,
             userRepository: mockUserRepository,
             commentRepository: mockCommentRepository,
+            commentReplyRepository: mockCommentReplyRepository,
         });
 
         // Act & Assert
@@ -247,6 +291,7 @@ describe('GetThreadDetailUseCase', () => {
         expect(mockUserRepository.getUsers).toBeCalledTimes(1);
 
         expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
+        expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
     });
 
     it('should throw error when getCommentsByThreadId fails', async () => {
@@ -277,6 +322,7 @@ describe('GetThreadDetailUseCase', () => {
             threadRepository: mockThreadRepository,
             userRepository: mockUserRepository,
             commentRepository: mockCommentRepository,
+            commentReplyRepository: mockCommentReplyRepository,
         });
 
         // Act & Assert
@@ -297,5 +343,7 @@ describe('GetThreadDetailUseCase', () => {
 
         expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(expectedThread.id);
         expect(mockCommentRepository.getCommentsByThreadId).toBeCalledTimes(1);
+
+        expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
     });
 });

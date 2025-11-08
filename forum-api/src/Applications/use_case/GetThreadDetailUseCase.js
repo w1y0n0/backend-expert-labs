@@ -1,11 +1,12 @@
-const { mapCommentModelToSummary } = require("../../Commons/utils/mapper");
+const { mapCommentModelToSummary, mapCommentReplyModelToSummary } = require("../../Commons/utils/mapper");
 const ThreadDetail = require("../../Domains/threads/entities/ThreadDetail");
 
 class GetThreadDetailUseCase {
-    constructor({ threadRepository, userRepository, commentRepository }) {
+    constructor({ threadRepository, userRepository, commentRepository, commentReplyRepository }) {
         this._threadRepository = threadRepository;
         this._userRepository = userRepository;
         this._commentRepository = commentRepository;
+        this._commentReplyRepository = commentReplyRepository;
     }
 
     async execute(useCasePayload) {
@@ -15,11 +16,21 @@ class GetThreadDetailUseCase {
         const user = await this._userRepository.getUserById(thread.owner);
         const users = await this._userRepository.getUsers();
         const comments = await this._commentRepository.getCommentsByThreadId(threadId);
+        const replies = await this._commentReplyRepository.getReplies()
 
         const mappedComments = comments
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map(comment => ({
-                ...comment, username: users.find(user => user.id === comment.owner).username,
+                ...comment,
+                username: users.find(user => user.id === comment.owner).username,
+                replies: replies
+                    .filter(reply => reply.commentId === comment.id)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .map(reply => ({
+                        ...reply,
+                        username: users.find(user => user.id === reply.owner).username,
+                    }))
+                    .map(mapCommentReplyModelToSummary),
             }))
             .map(mapCommentModelToSummary);
 

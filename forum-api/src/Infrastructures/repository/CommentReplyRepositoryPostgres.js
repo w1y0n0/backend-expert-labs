@@ -1,8 +1,9 @@
 const CommentReplyRepository = require('../../Domains/comments/CommentReplyRepository');
 const { nanoid } = require('nanoid');
 const CommentReply = require('../../Domains/comments/entities/CommentReply');
+const { mapCommentReplyDbToModel } = require('../../Commons/utils/mapper');
 
-class CommentReplyRepositoryPostgress extends CommentReplyRepository {
+class CommentReplyRepositoryPostgres extends CommentReplyRepository {
     constructor(pool, idGenerator = nanoid, date = new Date()) {
         super();
         this._pool = pool;
@@ -41,6 +42,25 @@ class CommentReplyRepositoryPostgress extends CommentReplyRepository {
             date: result.rows[0].date,
         });
     }
+
+    async getRepliesByCommentId(commentId) {
+        const query = {
+            text: 'SELECT * FROM comment_replies WHERE comment_id = $1',
+            values: [commentId],
+        };
+
+        const result = await this._pool.query(query);
+
+        return result.rows.map(mapCommentReplyDbToModel);
+    }
+
+    async getReplies() {
+        const query = { text: 'SELECT * FROM comment_replies' };
+
+        const result = await this._pool.query(query);
+
+        return result.rows.map(mapCommentReplyDbToModel);
+    }
 }
 
-module.exports = CommentReplyRepositoryPostgress;
+module.exports = CommentReplyRepositoryPostgres;
