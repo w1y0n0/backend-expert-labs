@@ -840,3 +840,14 @@ Time:        9.162 s, estimated 11 s
 Ran all test suites.
 
 ---
+$ npm run lint
+
+> forum-api@1.0.0 lint
+> eslint .
+
+$ npm run lint:fix
+
+> forum-api@1.0.0 lint:fix
+> eslint . --fix
+
+---
