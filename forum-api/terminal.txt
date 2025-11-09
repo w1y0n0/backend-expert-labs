@@ -851,3 +851,14 @@ $ npm run lint:fix
 > eslint . --fix
 
 ---
+Postman Testing
+---
+Forum API V1 Test:
+All Tests => Passed(98) Failed(0) Skipped(0)
+✅Users => Passed(20) Failed(0) Skipped(0)
+✅Authentications => Passed(16) Failed(0) Skipped(0)
+✅Threads => Passed(14) Failed(0) Skipped(0)
+✅Comments => Passed(24) Failed(0) Skipped(0)
+✅[Optional] Replies => Passed(24) Failed(0) Skipped(0)
+
+---
