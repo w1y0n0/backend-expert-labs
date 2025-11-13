@@ -1,349 +1,122 @@
-const ThreadDetail = require('../../../Domains/threads/entities/ThreadDetail');
+/* eslint-disable camelcase */
+const GetThreadDetailUseCase = require('../GetThreadDetailUseCase');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
-const CommentReplyRepository = require('../../../Domains/comments/CommentReplyRepository');
-const UserRepository = require('../../../Domains/users/UserRepository');
-const GetThreadDetailUseCase = require('../GetThreadDetailUseCase');
-const RegisteredUser = require('../../../Domains/users/entities/RegisteredUser');
-const Comment = require('../../../Domains/comments/entities/Comment');
-const CommentReply = require('../../../Domains/comments/entities/CommentReply');
-const Thread = require('../../../Domains/threads/entities/Thread');
-const { mapCommentModelToSummary, mapCommentReplyModelToSummary } = require('../../../Commons/utils/mapper');
+const ReplyRepository = require('../../../Domains/replies/ReplyRepository');
 
 describe('GetThreadDetailUseCase', () => {
-  const useCasePayload = {
-    threadId: 'thread-123',
-  };
-
-  let mockThreadRepository;
-  let mockUserRepository;
-  let mockCommentRepository;
-  let mockCommentReplyRepository;
-
-  beforeEach(() => {
-    mockThreadRepository = new ThreadRepository();
-    mockUserRepository = new UserRepository();
-    mockCommentRepository = new CommentRepository();
-    mockCommentReplyRepository = new CommentReplyRepository();
-
-    mockThreadRepository.checkThreadExist = jest.fn();
-    mockThreadRepository.getThreadById = jest.fn();
-    mockUserRepository.getUserById = jest.fn();
-    mockUserRepository.getUsers = jest.fn();
-    mockCommentRepository.getCommentsByThreadId = jest.fn();
-    mockCommentReplyRepository.getReplies = jest.fn();
-  });
-
-  // TODO: - Don't forget to add test for getReplies
-  it('should orchestrating the get thread detail action correctly', async () => {
+  it('should orchestrate the get thread detail action correctly including comments and replies', async () => {
     // Arrange
-    const expectedThread = new Thread({
-      id: 'thread-123',
-      title: 'A title',
-      body: 'A thread content',
-      owner: 'user-123',
-      date: '2025-09-07T10:00:00.000Z',
-    });
+    const mockThreadId = 'thread-123';
 
-    const expectedUser = new RegisteredUser({
-      id: 'user-123',
-      username: 'user123',
-      fullname: 'User 123',
-    });
+    const threadMockResponse = {
+      id: mockThreadId,
+      title: 'Sebuah thread',
+      body: 'Isi thread',
+      date: '2021-08-08T07:19:09.775Z',
+      username: 'dicoding',
+    };
 
-    const expectedUsers = [expectedUser];
-
-    const expectedComments = [
-      new Comment({
+    const commentsMockResponse = [
+      {
         id: 'comment-123',
-        content: 'A content',
-        owner: 'user-123',
-        threadId: 'thread-123',
-        date: '2025-09-08T10:00:00.000Z',
-      }),
-
-      new Comment({
+        username: 'user1',
+        date: '2021-08-08T07:22:33.555Z',
+        content: 'komentar pertama',
+        is_delete: false,
+      },
+      {
         id: 'comment-456',
-        content: 'A content',
-        owner: 'user-123',
-        threadId: 'thread-123',
-        date: '2025-09-12T10:00:00.000Z',
-      }),
+        username: 'user2',
+        date: '2021-08-08T07:26:21.338Z',
+        content: 'komentar dihapus',
+        is_delete: true,
+      },
     ];
 
-    const expectedReplies = [
-      new CommentReply({
+    const repliesMockResponse = [
+      {
         id: 'reply-123',
-        content: 'A reply',
-        owner: 'user-123',
-        commentId: 'comment-123',
-        date: '2025-09-20T10:00:00.000Z',
-      }),
-      new CommentReply({
+        comment_id: 'comment-123',
+        username: 'user3',
+        date: '2021-08-08T07:30:00.000Z',
+        content: 'balasan pertama',
+        is_delete: false,
+      },
+      {
         id: 'reply-456',
-        content: 'A reply',
-        owner: 'user-123',
-        commentId: 'comment-123',
-        date: '2025-09-26T10:00:00.000Z',
-      }),
+        comment_id: 'comment-123',
+        username: 'user4',
+        date: '2021-08-08T07:35:00.000Z',
+        content: 'balasan dihapus',
+        is_delete: true,
+      },
     ];
 
-    const mappedExpectedComments = expectedComments
-      .sort((a, b) => new Date(a.date) - new Date(b.date))
-      .map((comment) => ({
-        ...comment,
-        username: expectedUsers.find((user) => user.id === comment.owner).username,
-        replies: expectedReplies
-          .filter((reply) => reply.commentId === comment.id)
-          .sort((a, b) => new Date(a.date) - new Date(b.date))
-          .map((reply) => ({
-            ...reply,
-            username: expectedUsers.find((user) => user.id === reply.owner).username,
-          }))
-          .map(mapCommentReplyModelToSummary),
-      }))
-      .map(mapCommentModelToSummary);
+    const expectedThreadDetail = {
+      id: 'thread-123',
+      title: 'Sebuah thread',
+      body: 'Isi thread',
+      date: '2021-08-08T07:19:09.775Z',
+      username: 'dicoding',
+      comments: [
+        {
+          id: 'comment-123',
+          username: 'user1',
+          date: '2021-08-08T07:22:33.555Z',
+          content: 'komentar pertama',
+          replies: [
+            {
+              id: 'reply-123',
+              content: 'balasan pertama',
+              date: '2021-08-08T07:30:00.000Z',
+              username: 'user3',
+            },
+            {
+              id: 'reply-456',
+              content: '**balasan telah dihapus**',
+              date: '2021-08-08T07:35:00.000Z',
+              username: 'user4',
+            },
+          ],
+        },
+        {
+          id: 'comment-456',
+          username: 'user2',
+          date: '2021-08-08T07:26:21.338Z',
+          content: '**komentar telah dihapus**',
+          replies: [],
+        },
+      ],
+    };
 
-    const expectedThreadDetail = new ThreadDetail({
-      id: expectedThread.id,
-      title: expectedThread.title,
-      body: expectedThread.body,
-      date: expectedThread.date,
-      username: expectedUser.username,
-      comments: mappedExpectedComments,
-    });
+    const mockThreadRepository = new ThreadRepository();
+    const mockCommentRepository = new CommentRepository();
+    const mockReplyRepository = new ReplyRepository();
 
-    mockThreadRepository.checkThreadExist.mockResolvedValue();
-    mockThreadRepository.getThreadById.mockResolvedValue(expectedThread);
-    mockUserRepository.getUserById.mockResolvedValue(expectedUser);
-    mockUserRepository.getUsers.mockResolvedValue(expectedUsers);
-    mockCommentRepository.getCommentsByThreadId.mockResolvedValue(expectedComments);
-    mockCommentReplyRepository.getReplies.mockResolvedValue(expectedReplies);
+    mockThreadRepository.verifyThreadExists = jest.fn().mockResolvedValue();
+    mockThreadRepository.getThreadDetail = jest.fn().mockResolvedValue({ ...threadMockResponse });
+    mockCommentRepository.getCommentsByThreadId = jest.fn().mockResolvedValue(
+      commentsMockResponse.map((comment) => ({ ...comment }))
+    );
+    mockReplyRepository.getRepliesByCommentIds = jest.fn().mockResolvedValue(
+      repliesMockResponse.map((reply) => ({ ...reply }))
+    );
 
     const getThreadDetailUseCase = new GetThreadDetailUseCase({
       threadRepository: mockThreadRepository,
-      userRepository: mockUserRepository,
       commentRepository: mockCommentRepository,
-      commentReplyRepository: mockCommentReplyRepository,
+      replyRepository: mockReplyRepository,
     });
 
-    // Action
-    const threadDetail = await getThreadDetailUseCase.execute(useCasePayload);
+    // Act
+    const result = await getThreadDetailUseCase.execute(mockThreadId);
 
     // Assert
-    expect(threadDetail).toStrictEqual(expectedThreadDetail);
-
-    expect(threadDetail.comments).toStrictEqual(mappedExpectedComments);
-
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
-
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.getThreadById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUserById).toBeCalledWith(expectedThread.owner);
-    expect(mockUserRepository.getUserById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUsers).toBeCalledWith();
-    expect(mockUserRepository.getUsers).toBeCalledTimes(1);
-
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(expectedThread.id);
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledTimes(1);
-
-    expect(mockCommentReplyRepository.getReplies).toBeCalledWith();
-    expect(mockCommentReplyRepository.getReplies).toBeCalledTimes(1);
-  });
-
-  it('should throw error when thread does not exist', async () => {
-    // Arrange
-    mockThreadRepository.checkThreadExist.mockRejectedValue(new Error('thread tidak ditemukan'));
-
-    const getThreadDetailUseCase = new GetThreadDetailUseCase({
-      threadRepository: mockThreadRepository,
-      userRepository: mockUserRepository,
-      commentRepository: mockCommentRepository,
-      commentReplyRepository: mockCommentReplyRepository,
-    });
-
-    // Act & Assert
-    await expect(getThreadDetailUseCase.execute(useCasePayload))
-      .rejects.toThrowError('thread tidak ditemukan');
-
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
-
-    expect(mockThreadRepository.getThreadById).not.toBeCalled();
-    expect(mockUserRepository.getUserById).not.toBeCalled();
-    expect(mockUserRepository.getUsers).not.toBeCalled();
-    expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
-    expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
-  });
-
-  it('should throw error when getThreadById fails', async () => {
-    // Arrange
-    mockThreadRepository.checkThreadExist.mockResolvedValue();
-    mockThreadRepository.getThreadById.mockRejectedValue(new Error('gagal mendapatkan detail thread'));
-
-    const getThreadDetailUseCase = new GetThreadDetailUseCase({
-      threadRepository: mockThreadRepository,
-      userRepository: mockUserRepository,
-      commentRepository: mockCommentRepository,
-      commentReplyRepository: mockCommentReplyRepository,
-    });
-
-    // Act & Assert
-    await expect(getThreadDetailUseCase.execute(useCasePayload))
-      .rejects.toThrowError('gagal mendapatkan detail thread');
-
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
-
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.getThreadById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUserById).not.toBeCalled();
-    expect(mockUserRepository.getUsers).not.toBeCalled();
-    expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
-    expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
-  });
-
-  it('should throw error when getUserById fails', async () => {
-    // Arrange
-    const expectedThread = new Thread({
-      id: 'thread-123',
-      title: 'A title',
-      body: 'A thread content',
-      owner: 'user-123',
-      date: '2025-09-07T10:00:00.000Z',
-    });
-
-    mockThreadRepository.checkThreadExist.mockResolvedValue();
-    mockThreadRepository.getThreadById.mockResolvedValue(expectedThread);
-    mockUserRepository.getUserById.mockRejectedValue(new Error('user tidak ditemukan'));
-
-    const getThreadDetailUseCase = new GetThreadDetailUseCase({
-      threadRepository: mockThreadRepository,
-      userRepository: mockUserRepository,
-      commentRepository: mockCommentRepository,
-      commentReplyRepository: mockCommentReplyRepository,
-    });
-
-    // Act & Assert
-    await expect(getThreadDetailUseCase.execute(useCasePayload))
-      .rejects.toThrowError('user tidak ditemukan');
-
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
-
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.getThreadById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUserById).toBeCalledWith(expectedThread.owner);
-    expect(mockUserRepository.getUserById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUsers).not.toBeCalled();
-    expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
-    expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
-  });
-
-  it('should throw error when getUsers fails', async () => {
-    // Arrange
-    const expectedThread = new Thread({
-      id: 'thread-123',
-      title: 'A title',
-      body: 'A thread content',
-      owner: 'user-123',
-      date: '2025-09-07T10:00:00.000Z',
-    });
-
-    const expectedUser = new RegisteredUser({
-      id: 'user-123',
-      username: 'user123',
-      fullname: 'User 123',
-    });
-
-    mockThreadRepository.checkThreadExist.mockResolvedValue();
-    mockThreadRepository.getThreadById.mockResolvedValue(expectedThread);
-    mockUserRepository.getUserById.mockResolvedValue(expectedUser);
-    mockUserRepository.getUsers.mockRejectedValue(new Error('gagal mendapatkan data pengguna'));
-
-    const getThreadDetailUseCase = new GetThreadDetailUseCase({
-      threadRepository: mockThreadRepository,
-      userRepository: mockUserRepository,
-      commentRepository: mockCommentRepository,
-      commentReplyRepository: mockCommentReplyRepository,
-    });
-
-    // Act & Assert
-    await expect(getThreadDetailUseCase.execute(useCasePayload))
-      .rejects.toThrowError('gagal mendapatkan data pengguna');
-
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
-
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.getThreadById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUserById).toBeCalledWith(expectedThread.owner);
-    expect(mockUserRepository.getUserById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUsers).toBeCalledWith();
-    expect(mockUserRepository.getUsers).toBeCalledTimes(1);
-
-    expect(mockCommentRepository.getCommentsByThreadId).not.toBeCalled();
-    expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
-  });
-
-  it('should throw error when getCommentsByThreadId fails', async () => {
-    // Arrange
-    const expectedThread = new Thread({
-      id: 'thread-123',
-      title: 'A title',
-      body: 'A thread content',
-      owner: 'user-123',
-      date: '2025-09-07T10:00:00.000Z',
-    });
-
-    const expectedUser = new RegisteredUser({
-      id: 'user-123',
-      username: 'user123',
-      fullname: 'User 123',
-    });
-
-    const expectedUsers = [expectedUser];
-
-    mockThreadRepository.checkThreadExist.mockResolvedValue();
-    mockThreadRepository.getThreadById.mockResolvedValue(expectedThread);
-    mockUserRepository.getUserById.mockResolvedValue(expectedUser);
-    mockUserRepository.getUsers.mockResolvedValue(expectedUsers);
-    mockCommentRepository.getCommentsByThreadId.mockRejectedValue(new Error('gagal mendapatkan data komentar'));
-
-    const getThreadDetailUseCase = new GetThreadDetailUseCase({
-      threadRepository: mockThreadRepository,
-      userRepository: mockUserRepository,
-      commentRepository: mockCommentRepository,
-      commentReplyRepository: mockCommentReplyRepository,
-    });
-
-    // Act & Assert
-    await expect(getThreadDetailUseCase.execute(useCasePayload))
-      .rejects.toThrowError('gagal mendapatkan data komentar');
-
-    expect(mockThreadRepository.checkThreadExist).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.checkThreadExist).toBeCalledTimes(1);
-
-    expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload.threadId);
-    expect(mockThreadRepository.getThreadById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUserById).toBeCalledWith(expectedThread.owner);
-    expect(mockUserRepository.getUserById).toBeCalledTimes(1);
-
-    expect(mockUserRepository.getUsers).toBeCalledWith();
-    expect(mockUserRepository.getUsers).toBeCalledTimes(1);
-
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledWith(expectedThread.id);
-    expect(mockCommentRepository.getCommentsByThreadId).toBeCalledTimes(1);
-
-    expect(mockCommentReplyRepository.getReplies).not.toBeCalled();
+    expect(result).toEqual(expectedThreadDetail);
+    expect(mockThreadRepository.verifyThreadExists).toHaveBeenCalledWith(mockThreadId);
+    expect(mockThreadRepository.getThreadDetail).toHaveBeenCalledWith(mockThreadId);
+    expect(mockCommentRepository.getCommentsByThreadId).toHaveBeenCalledWith(mockThreadId);
+    expect(mockReplyRepository.getRepliesByCommentIds).toHaveBeenCalledWith(['comment-123', 'comment-456']);
   });
 });

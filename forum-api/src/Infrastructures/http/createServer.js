@@ -6,7 +6,7 @@ const users = require('../../Interfaces/http/api/users');
 const authentications = require('../../Interfaces/http/api/authentications');
 const threads = require('../../Interfaces/http/api/threads');
 const comments = require('../../Interfaces/http/api/comments');
-const commentReplies = require('../../Interfaces/http/api/comment_replies');
+const replies = require('../../Interfaces/http/api/replies');
 
 const createServer = async (container) => {
   const server = Hapi.server({
@@ -15,8 +15,7 @@ const createServer = async (container) => {
   });
 
   await server.register(Jwt);
-
-  server.auth.strategy('forum_jwt', 'jwt', {
+  server.auth.strategy('forumapi_jwt', 'jwt', {
     keys: process.env.ACCESS_TOKEN_KEY,
     verify: {
       aud: false,
@@ -50,7 +49,7 @@ const createServer = async (container) => {
       options: { container },
     },
     {
-      plugin: commentReplies,
+      plugin: replies,
       options: { container },
     },
   ]);
@@ -82,6 +81,8 @@ const createServer = async (container) => {
       const newResponse = h.response({
         status: 'error',
         message: 'terjadi kegagalan pada server kami',
+        // message: translatedError.message,
+        // stack: translatedError.stack,
       });
       newResponse.code(500);
       return newResponse;

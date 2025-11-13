@@ -1,7 +1,7 @@
 const AddCommentUseCase = require('../../../../Applications/use_case/AddCommentUseCase');
 const DeleteCommentUseCase = require('../../../../Applications/use_case/DeleteCommentUseCase');
 
-class CommentHandler {
+class CommentsHandler {
   constructor(container) {
     this._container = container;
 
@@ -10,40 +10,37 @@ class CommentHandler {
   }
 
   async postCommentHandler(request, h) {
-    const addCommentUseCase = this._container.getInstance(AddCommentUseCase.name);
-    const { id: userId } = request.auth.credentials;
+    const { id: owner } = request.auth.credentials;
     const { threadId } = request.params;
     const { content } = request.payload;
 
-    const addedComment = await addCommentUseCase.execute({
-      content,
-      userId,
-      threadId,
-    });
+    const addCommentUseCase = this._container.getInstance(AddCommentUseCase.name);
+    const addedComment = await addCommentUseCase.execute({ threadId, content, owner });
 
-    return h.response({
+    const response = h.response({
       status: 'success',
       data: {
-        addedComment: {
-          id: addedComment.id,
-          content: addedComment.content,
-          owner: addedComment.owner,
-        },
+        addedComment,
       },
-    }).code(201);
+    });
+    response.code(201);
+    return response;
   }
 
   async deleteCommentHandler(request, h) {
-    const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
-    const { id: userId } = request.auth.credentials;
+    const { id: owner } = request.auth.credentials;
     const { threadId, commentId } = request.params;
 
-    await deleteCommentUseCase.execute({ userId, threadId, commentId });
+    const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
 
-    return h.response({
+    await deleteCommentUseCase.execute({ threadId, commentId, owner });
+
+    const response = h.response({
       status: 'success',
-    }).code(200);
+    });
+    response.code(200);
+    return response;
   }
 }
 
-module.exports = CommentHandler;
+module.exports = CommentsHandler;

@@ -1,50 +1,41 @@
 const AddThreadUseCase = require('../../../../Applications/use_case/AddThreadUseCase');
 const GetThreadDetailUseCase = require('../../../../Applications/use_case/GetThreadDetailUseCase');
 
-class ThreadHandler {
+class ThreadsHandler {
   constructor(container) {
     this._container = container;
 
     this.postThreadHandler = this.postThreadHandler.bind(this);
-    this.getThreadByIdHandler = this.getThreadByIdHandler.bind(this);
+    this.getThreadDetailHandler = this.getThreadDetailHandler.bind(this);
   }
 
   async postThreadHandler(request, h) {
-    const addThreadUseCase = this._container.getInstance(AddThreadUseCase.name);
+    const { title, body } = request.payload;
     const { id: owner } = request.auth.credentials;
 
-    const addedThread = await addThreadUseCase.execute({
-      ...request.payload,
-      owner
+    const addThreadUseCase = this._container.getInstance(AddThreadUseCase.name);
+    const addedThread = await addThreadUseCase.execute({ title, body, owner });
+
+    const response = h.response({
+      status: 'success',
+      data: { addedThread },
     });
 
-    return h.response({
-      status: 'success',
-      data: {
-        addedThread: {
-          id: addedThread.id,
-          title: addedThread.title,
-          owner: addedThread.owner,
-        },
-      },
-    }).code(201);
+    response.code(201);
+    return response;
   }
 
-  async getThreadByIdHandler(request, h) {
-    const getThreadDetailUseCase = this._container.getInstance(GetThreadDetailUseCase.name);
+  async getThreadDetailHandler(request) {
     const { threadId } = request.params;
 
-    const thread = await getThreadDetailUseCase.execute({
-      threadId,
-    });
+    const getThreadDetailUseCase = this._container.getInstance(GetThreadDetailUseCase.name);
+    const thread = await getThreadDetailUseCase.execute(threadId);
 
-    return h.response({
+    return {
       status: 'success',
-      data: {
-        thread,
-      },
-    }).code(200);
+      data: { thread },
+    };
   }
 }
 
-module.exports = ThreadHandler;
+module.exports = ThreadsHandler;

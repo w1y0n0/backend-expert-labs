@@ -1,9 +1,11 @@
 class PasswordHash {
-  async hash(_password) {
+  /* eslint-disable no-unused-vars */
+  async hash(password) {
     throw new Error('PASSWORD_HASH.METHOD_NOT_IMPLEMENTED');
   }
 
-  async comparePassword(_plain, _encrypted) {
+  /* eslint-disable no-unused-vars */
+  async comparePassword(plain, encrypted) {
     throw new Error('PASSWORD_HASH.METHOD_NOT_IMPLEMENTED');
   }
 }

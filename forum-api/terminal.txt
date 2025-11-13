@@ -946,3 +946,20 @@ INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762554554214_create
 Migrations complete!
 
 ---
+..\forum-api>npm run test:watch
+Test Suites: 48 passed, 48 total
+Tests:       154 passed, 154 total
+Snapshots:   0 total
+Time:        11.622 s
+Ran all test suites.
+
+---
+Postman Testing
+---
+Forum API V1 Test:
+All Tests => Passed(98) Failed(0) Skipped(0)
+✅Users => Passed(20) Failed(0) Skipped(0)
+✅Authentications => Passed(16) Failed(0) Skipped(0)
+✅Threads => Passed(14) Failed(0) Skipped(0)
+✅Comments => Passed(24) Failed(0) Skipped(0)
+✅[Optional] Replies => Passed(24) Failed(0) Skipped(0)

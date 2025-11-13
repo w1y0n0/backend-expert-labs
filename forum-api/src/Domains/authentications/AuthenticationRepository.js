@@ -1,13 +1,16 @@
 class AuthenticationRepository {
-  async addToken(_token) {
+  /* eslint-disable no-unused-vars */
+  async addToken(token) {
     throw new Error('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async checkAvailabilityToken(_token) {
+  /* eslint-disable no-unused-vars */
+  async checkAvailabilityToken(token) {
     throw new Error('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async deleteToken(_token) {
+  /* eslint-disable no-unused-vars */
+  async deleteToken(token) {
     throw new Error('AUTHENTICATION_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

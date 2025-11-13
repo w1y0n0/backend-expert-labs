@@ -1,25 +1,21 @@
 class UserRepository {
-  async addUser(_registerUser) {
+  /* eslint-disable no-unused-vars */
+  async addUser(registerUser) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async verifyAvailableUsername(_username) {
+  /* eslint-disable no-unused-vars */
+  async verifyAvailableUsername(username) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getPasswordByUsername(_username) {
+  /* eslint-disable no-unused-vars */
+  async getPasswordByUsername(username) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 
-  async getIdByUsername(_username) {
-    throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-  }
-
-  async getUserById(_id) {
-    throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-  }
-
-  async getUsers() {
+  /* eslint-disable no-unused-vars */
+  async getIdByUsername(username) {
     throw new Error('USER_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }

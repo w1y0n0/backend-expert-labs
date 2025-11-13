@@ -1,68 +1,69 @@
-const NotFoundError = require('../../Commons/exceptions/NotFoundError');
-const Thread = require('../../Domains/threads/entities/Thread');
 const ThreadRepository = require('../../Domains/threads/ThreadRepository');
-const { nanoid } = require('nanoid');
+const AddedThread = require('../../Domains/threads/entities/AddedThread');
+const NotFoundError = require('../../Commons/exceptions/NotFoundError');
 
 class ThreadRepositoryPostgres extends ThreadRepository {
-  constructor(pool, idGenerator = nanoid, dateGenerator = () => new Date()) {
+  constructor(pool, idGenerator) {
     super();
     this._pool = pool;
     this._idGenerator = idGenerator;
-    this._dateGenerator = dateGenerator;
   }
 
-  async addThread({ title, body, owner }) {
+  async addThread(newThread) {
+    const { title, body, owner } = newThread;
     const id = `thread-${this._idGenerator()}`;
-    const date = this._dateGenerator().toISOString();
+    const date = new Date().toISOString();
 
-    const thread = new Thread({
-      id,
-      title,
-      body,
-      owner,
-      date,
-    });
+    const query = {
+      text: 'INSERT INTO threads(id, title, body, owner, date) VALUES($1, $2, $3, $4, $5) RETURNING id, title, owner',
+      values: [id, title, body, owner, date],
+    };
 
+    const result = await this._pool.query(query);
+
+    return new AddedThread({ ...result.rows[0] });
+  }
+
+  async verifyThreadExists(threadId) {
+    const query = {
+      text: 'SELECT 1 FROM threads WHERE id = $1',
+      values: [threadId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('thread tidak ditemukan');
+    }
+  }
+
+  async getThreadDetail(threadId) {
     const query = {
       text: `
-        INSERT INTO threads (id, title, body, owner, date) 
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING  id, title, body, owner, date
+        SELECT threads.id, threads.title, threads.body, threads.date, users.username
+        FROM threads
+        INNER JOIN users ON users.id = threads.owner
+        WHERE threads.id = $1
       `,
-      values: [thread.id, thread.title, thread.body, thread.owner, thread.date],
-    };
-
-    const result = await this._pool.query(query);
-
-    return new Thread(result.rows[0]);
-  }
-
-  async checkThreadExist(threadId) {
-    const query = {
-      text: 'SELECT id FROM threads WHERE id = $1',
       values: [threadId],
     };
 
     const result = await this._pool.query(query);
 
     if (!result.rowCount) {
-      throw new NotFoundError('thread tidak ditemukan');
+      throw new NotFoundError('Thread tidak ditemukan');
     }
-  }
 
-  async getThreadById(threadId) {
-    const query = {
-      text: 'SELECT * FROM threads WHERE id = $1',
-      values: [threadId],
+    // return result.rows[0];
+    const thread = result.rows[0];
+
+    return {
+      id: thread.id,
+      title: thread.title,
+      body: thread.body,
+      date: new Date(thread.date),
+      username: thread.username,
     };
-
-    const result = await this._pool.query(query);
-
-    if (!result.rowCount) {
-      throw new NotFoundError('thread tidak ditemukan');
-    }
-
-    return result.rows[0];
   }
 }
 
