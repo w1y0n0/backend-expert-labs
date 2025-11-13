@@ -862,3 +862,87 @@ All Tests => Passed(98) Failed(0) Skipped(0)
 ✅[Optional] Replies => Passed(24) Failed(0) Skipped(0)
 
 ---
+REVISI
+---
+..\forum-api>npm run migrate up
+
+> forum-api@1.0.0 migrate
+> node-pg-migrate up
+
+---
+..\forum-api>npm run migrate:test up
+
+> forum-api@1.0.0 migrate:test
+> node-pg-migrate -f config/database/test.json up
+
+> Migrating files:
+> - 1627983516963_create-table-users
+> - 1627983555473_create-table-authentications
+> - 1762159544648_create-table-threads
+> - 1762442072579_create-table-comments
+> - 1762554554214_create-table-replies
+### MIGRATION 1627983516963_create-table-users (UP) ###
+CREATE TABLE "users" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "username" VARCHAR(50) UNIQUE NOT NULL,
+  "password" TEXT NOT NULL,
+  "fullname" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983516963_create-table-users', NOW());
+
+
+### MIGRATION 1627983555473_create-table-authentications (UP) ###
+CREATE TABLE "authentications" (
+  "token" TEXT NOT NULL
+);
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1627983555473_create-table-authentications', NOW());
+
+
+### MIGRATION 1762159544648_create-table-threads (UP) ###
+CREATE TABLE "threads" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "title" TEXT NOT NULL,
+  "body" TEXT NOT NULL,
+  "owner" VARCHAR(50) NOT NULL,
+  "date" TEXT NOT NULL
+);
+ALTER TABLE "threads"
+  ADD CONSTRAINT "fk_threads.owner_users.id" FOREIGN KEY ("owner") REFERENCES users(id) ON DELETE CASCADE;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762159544648_create-table-threads', NOW());
+
+
+### MIGRATION 1762442072579_create-table-comments (UP) ###
+CREATE TABLE "comments" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "thread_id" VARCHAR(50) NOT NULL,
+  "content" TEXT NOT NULL,
+  "owner" VARCHAR(50) NOT NULL,
+  "date" TIMESTAMP NOT NULL,
+  "is_delete" BOOLEAN DEFAULT false NOT NULL
+);
+ALTER TABLE "comments"
+  ADD CONSTRAINT "fk_comments.thread_id_threads.id" FOREIGN KEY ("thread_id") REFERENCES threads(id) ON DELETE CASCADE;
+ALTER TABLE "comments"
+  ADD CONSTRAINT "fk_comments.owner_users.id" FOREIGN KEY ("owner") REFERENCES users(id) ON DELETE CASCADE;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762442072579_create-table-comments', NOW());
+
+
+### MIGRATION 1762554554214_create-table-replies (UP) ###
+CREATE TABLE "replies" (
+  "id" VARCHAR(50) PRIMARY KEY,
+  "comment_id" VARCHAR(50) NOT NULL,
+  "content" TEXT NOT NULL,
+  "owner" VARCHAR(50) NOT NULL,
+  "date" TIMESTAMP NOT NULL,
+  "is_delete" BOOLEAN DEFAULT false NOT NULL
+);
+ALTER TABLE "replies"
+  ADD CONSTRAINT "fk_replies.comment_id_comments.id" FOREIGN KEY ("comment_id") REFERENCES comments(id) ON DELETE CASCADE;
+ALTER TABLE "replies"
+  ADD CONSTRAINT "fk_replies.owner_users.id" FOREIGN KEY ("owner") REFERENCES users(id) ON DELETE CASCADE;
+INSERT INTO "public"."pgmigrations" (name, run_on) VALUES ('1762554554214_create-table-replies', NOW());
+
+
+Migrations complete!
+
+---
